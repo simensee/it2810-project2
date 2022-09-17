@@ -1,6 +1,7 @@
 # Team 23 - Prosjekt 2
 
 Til Pia: glpat-2Ac7vvhHxMZzDqURFyuo
+Til api: glpat-7jr69hwXbxdanDfe1Hyc
 
 
 ## Getting started
