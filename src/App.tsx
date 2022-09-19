@@ -6,7 +6,7 @@ import { FetchEvents, FetchUsers } from './Resources/APIWrapper';
 function App() {
 
   FetchUsers();
-  FetchEvents();
+  console.log(FetchEvents());
   
   return (
     <div className="App">
