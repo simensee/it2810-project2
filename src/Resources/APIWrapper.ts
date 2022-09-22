@@ -18,16 +18,16 @@ export function FetchUsers(): User[] {
             })}).then(res => res.json())
     );
 
+    console.log(data);
+
     if (isLoading) console.log('fetching');    
 
+    // Does not catch 40x responses
     if (isError) {
         console.log('An error occurred '+ error);
     } 
-    const userResp: User[] = data?.map((us: any) => {
-        const dunno: User = us;
-        return dunno;
-    })
-    return userResp;
+    const response: User[] = data;
+    return response;
 }
 
 export function FetchEvents(): Action[] {
@@ -44,13 +44,11 @@ export function FetchEvents(): Action[] {
 
     if (isLoading) console.log('fetching');    
 
+    // Does not catch 40x responses
     if (isError) {
         console.log('An error occurred '+ error);
     } 
 
-    const eventResp: Action[] = data?.map((action: any) => {
-        const dunno: Action = action;
-        return dunno;
-    })    
-    return eventResp;
+    const response: Action[] = data;   
+    return response;
 }
