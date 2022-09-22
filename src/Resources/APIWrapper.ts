@@ -48,6 +48,7 @@ export function FetchEvents(): Action[] {
     if (isError) {
         console.log('An error occurred '+ error);
     } 
+    
     const response: Action[] = data;   
     return response;
 }
