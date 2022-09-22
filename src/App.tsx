@@ -1,11 +1,14 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { FetchEvents, FetchUsers } from './Resources/APIWrapper';
+import { FetchEvents, FetchUsers } from './Resources/ApiWrapper';
+import { User } from './Resources/ResponseTypes';
 
 function App() {
 
-  FetchUsers();
+  // console.log(FetchUsers());
+  // const resp: User[] | undefined = FetchUsers();
+  // resp?.map(u => console.log(u.state))
   console.log(FetchEvents());
   
   return (
