@@ -4,7 +4,7 @@ import { AppRoutes } from './Router/AppRoutes'
 
 const Sidebar = () => {
   return (
-        <div>
+        <div className='sidebar'>
             <h1>Inital router</h1>
             <ul className="header">
                 <li><Link to={AppRoutes.readme}>Readme</Link></li>

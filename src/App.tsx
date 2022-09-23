@@ -16,7 +16,9 @@ function App() {
   return (
     <div className="App">
       <Sidebar/>
-      <NavRouter/>
+      <div className='content'>
+        <NavRouter/>
+      </div>
     </div>
   );
 }
