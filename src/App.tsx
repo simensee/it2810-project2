@@ -3,30 +3,20 @@ import logo from './logo.svg';
 import './App.css';
 import { FetchEvents, FetchUsers } from './Resources/ApiWrapper';
 import { User } from './Resources/ResponseTypes';
+import Sidebar from './Components/Sidebar';
+import NavRouter from './Components/Router/NavRouter';
 
 function App() {
 
   // console.log(FetchUsers());
   // const resp: User[] | undefined = FetchUsers();
   // resp?.map(u => console.log(u.state))
-  console.log(FetchEvents());
+  // console.log(FetchEvents());
   
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Sidebar/>
+      <NavRouter/>
     </div>
   );
 }
