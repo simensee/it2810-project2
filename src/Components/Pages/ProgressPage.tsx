@@ -1,6 +1,7 @@
 import React from 'react'
-
+import { Commit } from '../../Resources/ResponseTypes'
 const ProgressPage = () => {
+
   return (
     <div>
         <h1>Progress</h1>
