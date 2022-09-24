@@ -1,13 +1,14 @@
-import React, {createContext, useState, ReactNode} from 'react'
+import React, { createContext, useState, ReactNode } from 'react'
+import { User } from './ResponseTypes';
 
 interface DataContextProps {
-    val: [],
-    setVal: Function,
+    usersData: User[],
+    fetchUsers: Function,
 }
 
 export const DataContext = createContext<DataContextProps>({
-    val: [],
-    setVal: () => null
+    usersData: [],
+    fetchUsers: () => null
 });
 
 export interface LayoutProps {
@@ -15,17 +16,31 @@ export interface LayoutProps {
 }
 
 export const DataContextProvider = (props: LayoutProps) => {
-  let val: any = [];
+    const stringUrl: string = 'https://gitlab.stud.idi.ntnu.no/api/v4/projects/17475/';
+    const APIToken: string = 'glpat-cygbLETJKv1wXaNyMtXS';
 
-  const setVal = async (input: string) => {
-    val.push(input)
-    console.log(val);
-  }
+    let usersData: User[] = [];
 
-  const value: DataContextProps = {
-      val,
-      setVal,
-  };
+    const fetchUsers = async () => {
+        const usersUrl = stringUrl.concat('users');
+        let fetchUsersUrl: URL = new URL(usersUrl);
 
-  return <DataContext.Provider value={value}>{props.children}</DataContext.Provider>
+        await fetch(fetchUsersUrl, {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + APIToken,
+            })
+        }).then(res => res.json()).then((res) => {
+            const userResponse: User[] = res;
+            usersData.push(...userResponse);
+        });
+    }
+
+    const value: DataContextProps = {
+        usersData,
+        fetchUsers,
+    };
+
+    return <DataContext.Provider value={value}>{props.children}</DataContext.Provider>
 }
