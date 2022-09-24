@@ -30,10 +30,10 @@ function App() {
     <div className="flex flex-row">
 
       
-      {/* <Sidebar/>
+      <Sidebar/>
       <div className='bg-black/20'>
         <NavRouter/>
-      </div> */}
+      </div>
     </div>
   );
 }
