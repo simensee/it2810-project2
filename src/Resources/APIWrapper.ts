@@ -5,6 +5,13 @@ import { Action, User } from "./ResponseTypes";
 const stringUrl: string = 'https://gitlab.stud.idi.ntnu.no/api/v4/projects/17475/';
 const APIToken: string = 'glpat-cygbLETJKv1wXaNyMtXS';
 
+// Fetcher informasjon om bruker fra API
+// * id
+// * username
+// * name
+// * state
+// * avatar_url
+// * web_url
 
 export function FetchUsers(): User[] {
     const usersUrl = stringUrl.concat('users');
