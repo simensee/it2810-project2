@@ -18,7 +18,7 @@ root.render(
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <DataContextProvider>
-          <App />
+        <App/>
       </DataContextProvider>
     </BrowserRouter>
   </QueryClientProvider>

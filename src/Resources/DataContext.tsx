@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode } from 'react'
+import React, { createContext, ReactNode } from 'react'
 import { User } from './ResponseTypes';
 
 interface DataContextProps {
@@ -31,10 +31,12 @@ export const DataContextProvider = (props: LayoutProps) => {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + APIToken,
             })
-        }).then(res => res.json()).then((res) => {
-            const userResponse: User[] = res;
-            usersData.push(...userResponse);
-        });
+        })
+            .then(res => res.json())
+            .then((res) => {
+                const userResponse: User[] = res;
+                usersData.push(...userResponse);
+            });
     }
 
     const value: DataContextProps = {
