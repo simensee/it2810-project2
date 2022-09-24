@@ -1,11 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import logo from './logo.svg';
-// import { FetchEvents, FetchUsers } from './Resources/APIWrapper';
 import { Commit, User } from './Resources/ResponseTypes';
 import Sidebar from './Components/Sidebar';
 import NavRouter from './Components/Router/NavRouter';
 import { DataContext } from './Resources/DataContext';
-// import { GetUserTotalCommits } from './Resources/UserResources';
 
 function App() {
   const ctx = useContext(DataContext);
@@ -30,7 +28,6 @@ function App() {
   
   return (
     <div className="flex flex-row">
-      {/* <p>{ctx.val}</p> */}
 
       
       {/* <Sidebar/>

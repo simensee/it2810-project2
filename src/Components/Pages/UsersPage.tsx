@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { DataContext } from '../../Resources/DataContext';
-// import { FetchCommitsUser, FetchUsers } from '../../Resources/APIWrapper';
 import { Commit, User } from '../../Resources/ResponseTypes';
 
 

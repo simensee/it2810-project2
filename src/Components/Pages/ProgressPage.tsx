@@ -1,11 +1,6 @@
 import React from 'react'
-// import {FetchCommits} from '../../Resources/APIWrapper';
 import { Commit } from '../../Resources/ResponseTypes'
 const ProgressPage = () => {
-  // console.log(FetchCommits());
-  // const resp: Commit[] | undefined = FetchCommits();
-  // resp?.map(u => console.log(u.message))
-  //console.log(FetchEvents());
 
   return (
     <div>
