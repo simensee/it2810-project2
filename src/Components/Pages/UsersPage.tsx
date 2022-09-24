@@ -1,6 +1,12 @@
 import React from 'react'
+import { FetchCommitsUser, FetchUsers } from '../../Resources/APIWrapper';
+import { User } from '../../Resources/ResponseTypes';
+
 
 const UsersPage = () => {
+  const resp: User[] | User = FetchUsers();
+ // console.log(FetchCommitsUser(resp.at(0)))
+  resp?.map(u => console.log(FetchCommitsUser(u)))
   return (
     <div>
         <h1>Users</h1>

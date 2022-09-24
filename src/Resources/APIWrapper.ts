@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
+import userEvent from "@testing-library/user-event";
 import React from "react";
+import UsersPage from "../Components/Pages/UsersPage";
 import { Action, User, Commit } from "./ResponseTypes";
 
 const stringUrl: string = 'https://gitlab.stud.idi.ntnu.no/api/v4/projects/17475/';
@@ -82,4 +84,14 @@ export function FetchCommits(): Commit[] {
     return response;
 }
 
+export function FetchCommitsUser(user: User): number {
+    const resp: Commit[] | Commit = FetchCommits();
+    let n: number = 0;
+    for (let i=0; i < resp.length; i++){
+        if(user.username === resp[i].author_name){
+            n += 1
+        }
+    }
+    return n;
+}
 
