@@ -1,6 +1,5 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
 import { FetchEvents, FetchUsers } from './Resources/APIWrapper';
 import { User } from './Resources/ResponseTypes';
 import Sidebar from './Components/Sidebar';
@@ -14,9 +13,9 @@ function App() {
   // console.log(FetchEvents());
   
   return (
-    <div className="App">
+    <div className="flex flex-row">
       <Sidebar/>
-      <div className='content'>
+      <div className='bg-black/20'>
         <NavRouter/>
       </div>
     </div>
