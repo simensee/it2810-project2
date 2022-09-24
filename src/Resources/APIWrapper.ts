@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import userEvent from "@testing-library/user-event";
-import React from "react";
+import React, { useContext } from "react";
 import UsersPage from "../Components/Pages/UsersPage";
+import { DataContext } from "./DataContext";
 import { Action, User, Commit } from "./ResponseTypes";
 
 // const stringUrl: string = 'https://gitlab.stud.idi.ntnu.no/api/v4/projects/17475/';
@@ -62,36 +63,38 @@ import { Action, User, Commit } from "./ResponseTypes";
 //     return response;
 // }
 
-export function FetchCommits(): Commit[] {
-    const commitUrl = stringUrl.concat('repository/commits');
-    let fetchUsersUrl: URL = new URL(commitUrl);
-    const {isLoading, isError, data, error} = useQuery(['commitData'], () => 
-        fetch(fetchUsersUrl, {
-            method: 'GET', 
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer '+ APIToken,
-            })}).then(res => res.json())
-    );
-    if (isLoading) console.log('fetching');    
+// export function FetchCommits(): Commit[] {
+//     const commitUrl = stringUrl.concat('repository/commits');
+//     let fetchUsersUrl: URL = new URL(commitUrl);
+//     const {isLoading, isError, data, error} = useQuery(['commitData'], () => 
+//         fetch(fetchUsersUrl, {
+//             method: 'GET', 
+//             headers: new Headers({
+//                 'Content-Type': 'application/json',
+//                 'Authorization': 'Bearer '+ APIToken,
+//             })}).then(res => res.json())
+//     );
+//     if (isLoading) console.log('fetching');    
 
-    // Does not catch 40x responses
-    if (isError) {
-        console.log('An error occurred '+ error);
-    } 
+//     // Does not catch 40x responses
+//     if (isError) {
+//         console.log('An error occurred '+ error);
+//     } 
     
-    const response: Commit[] = data;   
-    return response;
-}
+//     const response: Commit[] = data;   
+//     return response;
+// }
 
-export function FetchCommitsUser(user: User): number {
-    const resp: Commit[] | Commit = FetchCommits();
-    let n: number = 0;
-    for (let i=0; i < resp.length; i++){
-        if(user.username === resp[i].author_name){
-            n += 1
-        }
-    }
-    return n;
-}
+// const ctx = useContext(DataContext);
+
+// export function FetchCommitsUser(user: User): number {
+//     const resp: Commit[] | Commit = ctx.commitData;
+//     let n: number = 0;
+//     for (let i=0; i < resp.length; i++){
+//         if(user.username === resp[i].author_name){
+//             n += 1
+//         }
+//     }
+//     return n;
+// }
 

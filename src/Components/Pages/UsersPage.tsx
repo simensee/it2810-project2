@@ -1,12 +1,21 @@
-import React from 'react'
-import { FetchCommitsUser, FetchUsers } from '../../Resources/APIWrapper';
-import { User } from '../../Resources/ResponseTypes';
+import React, { useContext } from 'react'
+import { DataContext } from '../../Resources/DataContext';
+// import { FetchCommitsUser, FetchUsers } from '../../Resources/APIWrapper';
+import { Commit, User } from '../../Resources/ResponseTypes';
 
 
 const UsersPage = () => {
-  const resp: User[] | User = FetchUsers();
- // console.log(FetchCommitsUser(resp.at(0)))
-  resp?.map(u => console.log(FetchCommitsUser(u)))
+  const ctx = useContext(DataContext);
+  function GetUserTotalCommits(user: User): number {
+  const resp: Commit[] | Commit = ctx.commitData;
+  let n: number = 0;
+  for (let i=0; i < resp.length; i++){
+      if(user.username === resp[i].author_name){
+          n += 1
+      }
+  }
+  return n;
+}
   return (
     <div>
         <h1>Users</h1>

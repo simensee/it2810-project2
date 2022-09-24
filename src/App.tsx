@@ -1,16 +1,18 @@
 import React, { useContext, useEffect } from 'react';
 import logo from './logo.svg';
 // import { FetchEvents, FetchUsers } from './Resources/APIWrapper';
-import { User } from './Resources/ResponseTypes';
+import { Commit, User } from './Resources/ResponseTypes';
 import Sidebar from './Components/Sidebar';
 import NavRouter from './Components/Router/NavRouter';
 import { DataContext } from './Resources/DataContext';
+// import { GetUserTotalCommits } from './Resources/UserResources';
 
 function App() {
   const ctx = useContext(DataContext);
 
   const setup = async () => {
     await ctx.fetchUsers();
+    await ctx.fetchCommits();
   }
 
 
@@ -29,12 +31,7 @@ function App() {
   return (
     <div className="flex flex-row">
       {/* <p>{ctx.val}</p> */}
-      <button onClick={() => console.log(ctx.usersData[2])}>click!</button>
-      <button onClick={() => console.log(ctx.usersData[3])}>click!</button>
-      <button onClick={() => console.log(ctx.usersData[4])}>click!</button>
-      <button onClick={() => console.log(ctx.usersData[5])}>click!</button>
-      <button onClick={() => console.log(ctx.usersData[6])}>click!</button>
-      <button onClick={() => console.log(ctx.usersData[7])}>click!</button>
+
       
       {/* <Sidebar/>
       <div className='bg-black/20'>
