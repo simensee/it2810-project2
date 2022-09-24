@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { FetchEvents, FetchUsers } from './Resources/ApiWrapper';
+import { FetchEvents, FetchUsers } from './Resources/APIWrapper';
 import { User } from './Resources/ResponseTypes';
 import Sidebar from './Components/Sidebar';
 import NavRouter from './Components/Router/NavRouter';
