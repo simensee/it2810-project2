@@ -63,6 +63,6 @@ export interface Commit {
     committer_name:  string;
     committer_email: string;
     committed_date:  Date;
-    trailers:        Trailers;
+    trailers:       boolean;
     web_url:         string;
 }
