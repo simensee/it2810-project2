@@ -1,9 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import logo from './logo.svg';
 import { Commit, User } from './Resources/ResponseTypes';
-import Sidebar from './Components/Sidebar';
+import Sidebar from './Components/Sidebar/Sidebar';
 import NavRouter from './Components/Router/NavRouter';
 import { DataContext } from './Resources/DataContext';
+import { classicNameResolver } from 'typescript';
+import classnames from 'tailwindcss-classnames';
 
 function App() {
   const ctx = useContext(DataContext);
@@ -14,27 +16,30 @@ function App() {
   }
 
 
+
   useEffect(() => {  
     setup();
   }, []);
 
 
   // console.log(FetchUsers());
-  // const resp: User[] | undefined = FetchUsers();
-  // resp?.map(u => console.log(u.state))
+
+  // console.log(resp[0]);s
+  
+  
+  // resp?.map(u => console.log(u.name))
   // console.log(FetchEvents());
 
   // ctx.setVal('Hallo');
   
   return (
-    <div className="flex flex-row">
-
-      
+    <>
+    <nav>
       <Sidebar/>
-      <div className='bg-black/20'>
-        <NavRouter/>
-      </div>
+    </nav>
+    <div className='ml-64 pl-4 pb-8 lg:pt-12 px-4 h-full flex gap-4'>
     </div>
+    </>
   );
 }
 
