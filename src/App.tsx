@@ -37,7 +37,8 @@ function App() {
     <nav>
       <Sidebar/>
     </nav>
-    <div className='ml-64 pl-4 pb-8 lg:pt-12 px-4 h-full flex gap-4'>
+    <div className='ml-64 pl-4 pb-8 lg:pt-12 px-4 h-full'>
+      <NavRouter/>
     </div>
     </>
   );
