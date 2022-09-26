@@ -32,6 +32,7 @@ function App() {
   return (
    <nav className='flex fixed bottom-0 top-0 bg-black/20 px-4 py-8'>
      <Sidebar/>
+     <NavRouter/>
    </nav>
   );
 }

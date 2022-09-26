@@ -1,8 +1,20 @@
 import React from 'react'
 
-const NavButton = () => {
+type NavButtonProps = {
+  label: string,
+  ref: string,
+}
+
+const NavButton = (
+  { label, ref }: NavButtonProps
+) => {
   return (
-    <div>NavButton</div>
+    <a href={ref}>
+      <button>
+        
+      </button>
+    </a>
+
   )
 }
 
