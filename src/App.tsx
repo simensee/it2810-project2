@@ -1,9 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import logo from './logo.svg';
 import { Commit, User } from './Resources/ResponseTypes';
 import Sidebar from './Components/Sidebar/Sidebar';
 import NavRouter from './Components/Router/NavRouter';
 import { DataContext } from './Resources/DataContext';
+import { classicNameResolver } from 'typescript';
+import classnames from 'tailwindcss-classnames';
 
 function App() {
   const ctx = useContext(DataContext);
@@ -12,6 +14,7 @@ function App() {
     await ctx.fetchUsers();
     await ctx.fetchCommits();
   }
+
 
 
   useEffect(() => {  
@@ -30,10 +33,13 @@ function App() {
   // ctx.setVal('Hallo');
   
   return (
-   <nav className='flex fixed bottom-0 top-0 bg-black/20 px-4 py-8'>
-     <Sidebar/>
-     <NavRouter/>
-   </nav>
+    <>
+    <nav>
+      <Sidebar/>
+    </nav>
+    <div className='ml-64 pl-4 pb-8 lg:pt-12 px-4 h-full flex gap-4'>
+    </div>
+    </>
   );
 }
 
