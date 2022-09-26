@@ -1,26 +1,46 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import logo from './logo.svg';
-import { FetchEvents, FetchUsers } from './Resources/APIWrapper';
-import { User } from './Resources/ResponseTypes';
-import Sidebar from './Components/Sidebar';
+import { Commit, User } from './Resources/ResponseTypes';
+import Sidebar from './Components/Sidebar/Sidebar';
 import NavRouter from './Components/Router/NavRouter';
-import UserCard from './Components/UserCard';
+import { DataContext } from './Resources/DataContext';
+import { classicNameResolver } from 'typescript';
+import classnames from 'tailwindcss-classnames';
 
 function App() {
+  const ctx = useContext(DataContext);
+
+  const setup = async () => {
+    await ctx.fetchUsers();
+    await ctx.fetchCommits();
+  }
+
+
+
+  useEffect(() => {  
+    setup();
+  }, []);
+
 
   // console.log(FetchUsers());
-  const resp: User[] = FetchUsers();
-  // resp?.map(u => console.log(u.state))
+
+  // console.log(resp[0]);s
+  
+  
+  // resp?.map(u => console.log(u.name))
   // console.log(FetchEvents());
+
+  // ctx.setVal('Hallo');
   
   return (
-    <div className="flex flex-row gap-2">
-      {resp?.map((u) => <UserCard key={u.id} user={u} />)}
-      {/* <Sidebar/>
-      <div className='bg-black/20'>
-        <NavRouter/>
-      </div> */}
+    <>
+    <nav>
+      <Sidebar/>
+    </nav>
+    <div className='ml-64 pl-4 pb-8 lg:pt-12 px-4 h-full'>
+      <NavRouter/>
     </div>
+    </>
   );
 }
 

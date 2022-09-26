@@ -6,8 +6,8 @@ export interface User {
     username?:  string;
     name:       string;
     state?:     string;
-    avatarURL?: string;
-    webURL?:    string;
+    avatar_url?: string;
+    web_url?:    string;
     founded?:   number;
     members?:   string[];
 }
@@ -48,4 +48,21 @@ export interface PushData {
     ref:         string;
     commitTitle: string;
     refCount:    null;
+}
+
+export interface Commit {
+    id:              string;
+    short_id:        string;
+    created_at:      Date;
+    parent_ids:      string[];
+    title:           string;
+    message:         string;
+    author_name:     string;
+    author_email:    string;
+    authored_date:   Date;
+    committer_name:  string;
+    committer_email: string;
+    committed_date:  Date;
+    trailers:       boolean;
+    web_url:         string;
 }
