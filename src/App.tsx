@@ -6,6 +6,7 @@ import NavRouter from './Components/Router/NavRouter';
 import { DataContext } from './Resources/DataContext';
 import { classicNameResolver } from 'typescript';
 import classnames from 'tailwindcss-classnames';
+import UserCard from './Components/UserCard';
 
 function App() {
   const ctx = useContext(DataContext);
@@ -15,10 +16,14 @@ function App() {
     await ctx.fetchCommits();
   }
 
+  const [user, setUser] = useState<User>({
+    name: 'empty user',
+  });
+
 
 
   useEffect(() => {  
-    setup();
+    setup().then(() => setUser(ctx.usersData[11]));
   }, []);
 
 
@@ -38,7 +43,8 @@ function App() {
       <Sidebar/>
     </nav>
     <div className='ml-64 pl-4 pb-8 lg:pt-12 px-4 h-full'>
-      <NavRouter/>
+      {/* <NavRouter/> */}
+      <UserCard user={user}/>
     </div>
     </>
   );
