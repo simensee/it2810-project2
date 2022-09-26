@@ -1,7 +1,7 @@
-import React from "react";
 
 export const AppRoutes = {
-    readme: '/',
+    startPage: '/start',
+    readme: '/readme',
     usersPage: '/users',
     progressPage: '/progress',
     brancesPage: '/branches',
