@@ -17,11 +17,11 @@ const UsersPage = () => {
  
 
   return (
-    <div className='flex gap-4'>
-
-      <div className='w-full grid grid-cols-3 gap-4'>
+    <div className='grid grid-cols-3 gap-4'>
+      <div className='col-span-2 grid grid-cols-3 gap-4'>
         {userList.map((u, i) => {
-          return <div key={i} className='p-8 hover:outline flex pointer-events-auto' onClick={() => {
+          // Lise sett in usercard her :)
+          return <div key={u.id} className='p-8 hover:outline flex pointer-events-auto' onClick={() => {
             setFocusUser(u)
             }}>
             {u.name}
