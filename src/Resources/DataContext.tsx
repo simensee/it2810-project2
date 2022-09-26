@@ -59,6 +59,8 @@ export const DataContextProvider = (props: LayoutProps) => {
         });
     }
 
+    
+
     const value: DataContextProps = {
         usersData,
         commitData,
