@@ -26,7 +26,7 @@ export const DataContextProvider = (props: LayoutProps) => {
 
     let usersData: User[] = [];
     let commitData: Commit[] = [];
-
+    let currentPage = 0; 
     const fetchUsers = async () => {
         const usersUrl = stringUrl.concat('users');
         let fetchUsersUrl: URL = new URL(usersUrl);
@@ -45,19 +45,27 @@ export const DataContextProvider = (props: LayoutProps) => {
 
     const fetchCommits = async () => {
         const commitUrl = stringUrl.concat('repository/commits');
-        let fetchCommitUrl: URL = new URL(commitUrl);
-
-        await fetch(fetchCommitUrl, {
+        let fetchCommitUrl: URL = new URL(commitUrl + "?pagination=keyset");
+        let page: number = 1;
+        let finished: boolean = false;
+        while (!finished) {
+        await fetch(fetchCommitUrl + "&page=" + page, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + APIToken,
             })
         }).then(res => res.json()).then((res) => {
+            if (res.length < 20) finished = true;
+            console.log(res.length);
             const commitResponse: Commit[] = res;
             commitData.push(...commitResponse);
+            page++;
         });
+        }
     }
+
+    
 
     const value: DataContextProps = {
         usersData,

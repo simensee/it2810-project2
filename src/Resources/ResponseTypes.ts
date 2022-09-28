@@ -6,8 +6,8 @@ export interface User {
     username?:  string;
     name:       string;
     state?:     string;
-    avatarURL?: string;
-    webURL?:    string;
+    avatar_url?: string;
+    web_url?:    string;
     founded?:   number;
     members?:   string[];
 }
