@@ -36,7 +36,8 @@ export const DataContextProvider = (props: LayoutProps) => {
     let usersData: User[] = [];
     let commitData: Commit[] = [];
     
-    const [isAuthorized, setAuthorized] = useState(false);
+    // Login is set to true for easier development
+    const [isAuthorized, setAuthorized] = useState(true);
 
     if (sessionStorage.getItem('isAuth') === 'true' && !isAuthorized){
         setAuthorized(true);
