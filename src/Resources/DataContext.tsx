@@ -5,6 +5,9 @@ import { Commit, User } from './ResponseTypes';
 interface DataContextProps {
     usersData: User[],
     commitData: Commit[],
+    isAuthorized: boolean,
+    setIsAuthorized: Function,
+    setCredentials: Function,
     fetchUsers: Function,
     fetchCommits: Function,
 }
@@ -12,6 +15,9 @@ interface DataContextProps {
 export const DataContext = createContext<DataContextProps>({
     usersData: [],
     commitData: [],
+    isAuthorized: false,
+    setIsAuthorized: () => null,
+    setCredentials: () => null,
     fetchUsers: () => null,
     fetchCommits: () => null,
 });
@@ -21,14 +27,35 @@ export interface LayoutProps {
 }
 
 export const DataContextProvider = (props: LayoutProps) => {
-    const stringUrl: string = 'https://gitlab.stud.idi.ntnu.no/api/v4/projects/17475/';
+    const baseUrl: string = 'https://gitlab.stud.idi.ntnu.no/api/v4/projects/17475/';
     const APIToken: string = 'glpat-cygbLETJKv1wXaNyMtXS';
 
+    let repoId: string = '';
+    let ApiToken: string = '';
+    
     let usersData: User[] = [];
     let commitData: Commit[] = [];
+    
+    // Login is set to true for easier development
+    const [isAuthorized, setAuthorized] = useState(true);
+
+    if (sessionStorage.getItem('isAuth') === 'true' && !isAuthorized){
+        setAuthorized(true);
+    }
+
+    const setCredentials = (id: string, token: string) => {
+        repoId = id;
+        ApiToken = token;
+    }
+
+    const setIsAuthorized = async (val: boolean) => {
+        setAuthorized(val);
+        sessionStorage.setItem('isAuth', val ? 'true' : 'false');
+    }
+
     let currentPage = 0; 
     const fetchUsers = async () => {
-        const usersUrl = stringUrl.concat('users');
+        const usersUrl = baseUrl.concat('users');
         let fetchUsersUrl: URL = new URL(usersUrl);
 
         await fetch(fetchUsersUrl, {
@@ -44,7 +71,7 @@ export const DataContextProvider = (props: LayoutProps) => {
     }
 
     const fetchCommits = async () => {
-        const commitUrl = stringUrl.concat('repository/commits');
+        const commitUrl = baseUrl.concat('repository/commits');
         let fetchCommitUrl: URL = new URL(commitUrl + "?pagination=keyset");
         let page: number = 1;
         let finished: boolean = false;
@@ -70,6 +97,9 @@ export const DataContextProvider = (props: LayoutProps) => {
     const value: DataContextProps = {
         usersData,
         commitData,
+        isAuthorized,
+        setIsAuthorized,
+        setCredentials,
         fetchUsers,
         fetchCommits,
     };
