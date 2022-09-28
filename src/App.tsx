@@ -35,7 +35,13 @@ function App() {
   return (
     <>
       {/* <LoginPage/> */}
+      {loadComplete ? 
       <NavRouter/>
+      :
+      <div className='flex items-center justify-center h-full'>
+        <span className='text-5xl'>Loading...</span>
+      </div>      
+    }
       {/* <nav>
         <Sidebar />
       </nav>
