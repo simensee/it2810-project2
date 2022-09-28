@@ -9,7 +9,7 @@ const Sidebar = () => {
   return (
     <div className='flex'>
       <aside className='w-64 max-h-screen'>
-        <div className='w-64 fixed left-0 top-0 h-screen bg-slate-700 py-10 px-5 min-h-screen'>
+        <div className='w-64 fixed left-0 top-0 h-screen bg-nav-bg py-10 px-5 min-h-screen'>
           <div className='m-4 text-5xl text-gray-100'>
             <h1>Nettside</h1>
           </div>
