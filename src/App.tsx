@@ -19,7 +19,7 @@ function App() {
   const [loadComplete, setLoadComplete] = useState(false);
 
   useEffect(() => {
-    // setup().then(() => setLoadComplete(true)).then(() => console.log(ctx.usersData));
+    setup().then(() => setLoadComplete(true)).then(() => console.log(ctx.usersData));
   }, []);
 
   // console.log(FetchUsers());
