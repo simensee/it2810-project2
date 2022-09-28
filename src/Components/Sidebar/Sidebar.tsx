@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '../Router/AppRoutes'
 import NavButton from './NavButton'
 import ArticleIcon from '@mui/icons-material/Article';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import { DataContext } from '../../Resources/DataContext';
 
 const Sidebar = () => {
+const ctx = useContext(DataContext);
+
   return (
     <div className='flex'>
       <aside className='w-64 max-h-screen'>
@@ -45,6 +48,16 @@ const Sidebar = () => {
                 <AccountTreeIcon />
                 <span className="flex-1 ml-3 whitespace-nowrap">Branches</span>
               </NavButton>
+            </li>
+            <li>
+              <button 
+              className='flex items-center space-x-6 px-4 py-2 rounded-lg text-gray-100 hover:bg-gray-100 hover:text-gray-900'
+              onClick={()=> {
+                ctx.setIsAuthorized(false);
+              }}
+              >
+                <span className="flex-1 ml-3 whitespace-nowrap">Log out</span>
+              </button>
             </li>
           </ul>
         </div>
