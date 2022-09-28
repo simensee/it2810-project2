@@ -5,4 +5,5 @@ export const AppRoutes = {
     usersPage: '/users',
     progressPage: '/progress',
     brancesPage: '/branches',
+    loginPage: '/login',
 }
