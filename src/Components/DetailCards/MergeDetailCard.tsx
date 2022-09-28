@@ -4,10 +4,10 @@ import { Commit, MergeRequest } from '../../Resources/ResponseTypes';
 
 
 type MergeDetailCardProps = {
-    focusUser: MergeRequest;
+    focusMerge: MergeRequest;
 }
 
-const MergeDetailCard = ({ focusUser }: MergeDetailCardProps) => {
+const MergeDetailCard = ({ focusMerge }: MergeDetailCardProps) => {
 
     const ctx = useContext(DataContext);
     //const [userCommits, setUserCommits] = useState(0);
@@ -16,7 +16,7 @@ const MergeDetailCard = ({ focusUser }: MergeDetailCardProps) => {
 
     return (
         <div>
-
+            {focusMerge.id}
         </div>
     )
 }
