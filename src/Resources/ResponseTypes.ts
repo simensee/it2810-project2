@@ -131,3 +131,53 @@ export interface TimeStats {
     humanTimeEstimate?:   null;
     humanTotalTimeSpent?: null;
 }
+
+export interface Issue {
+    id?:                   number;
+    iid?:                  number;
+    projectID?:            number;
+    title?:                string;
+    description?:          string;
+    state?:                string;
+    createdAt?:            Date;
+    updatedAt?:            Date;
+    closedAt?:             null;
+    closedBy?:             null;
+    labels?:               string[];
+    milestone?:            null;
+    assignees?:            User[];
+    author?:               User;
+    type?:                 string;
+    assignee?:             User;
+    userNotesCount?:       number;
+    mergeRequestsCount?:   number;
+    upvotes?:              number;
+    downvotes?:            number;
+    dueDate?:              null;
+    confidential?:         boolean;
+    discussionLocked?:     null;
+    issueType?:            string;
+    webURL?:               string;
+    timeStats?:            TimeStats;
+    taskCompletionStatus?: TaskCompletionStatus;
+    hasTasks?:             boolean;
+    links?:                Links;
+    references?:           References;
+    severity?:             string;
+    movedToID?:            null;
+    serviceDeskReplyTo?:   null;
+}
+
+
+
+export interface Links {
+    self?:                string;
+    notes?:               string;
+    awardEmoji?:          string;
+    project?:             string;
+    closedAsDuplicateOf?: null;
+}
+
+
+
+
