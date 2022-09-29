@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { DataContext } from '../../Resources/DataContext'
 
 const BranchesPage = () => {
+
+  const ctx = useContext(DataContext);
   return (
     <div>
         <h1>Branches</h1>
@@ -16,6 +19,7 @@ const BranchesPage = () => {
                 consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, 
                 vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
               </p>
+              <button onClick={() => ctx.fetchBranches()}>fetch</button>
     </div>
   )
 }

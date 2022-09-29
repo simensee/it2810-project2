@@ -1,15 +1,17 @@
 import React, { createContext, useState, ReactNode } from 'react'
-import { Commit, User } from './ResponseTypes';
+import { Commit, User, Branch } from './ResponseTypes';
 
 
 interface DataContextProps {
     usersData: User[],
     commitData: Commit[],
+    // branchesData: Branch[],
     isAuthorized: boolean,
     setIsAuthorized: Function,
     setCredentials: Function,
     fetchUsers: Function,
     fetchCommits: Function,
+    fetchBranches: Function,
 }
 
 export const DataContext = createContext<DataContextProps>({
@@ -20,6 +22,7 @@ export const DataContext = createContext<DataContextProps>({
     setCredentials: () => null,
     fetchUsers: () => null,
     fetchCommits: () => null,
+    fetchBranches: () => null,
 });
 
 export interface LayoutProps {
@@ -92,7 +95,24 @@ export const DataContextProvider = (props: LayoutProps) => {
         }
     }
 
-    
+    const fetchBranches = async () => {
+        const branchUrl = baseUrl.concat('repository/branches')
+        let fetchBranchUrl: URL = new URL(branchUrl)
+
+        await fetch(fetchBranchUrl, {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json', //tell fetch that you sending in a json
+                'Authorization': 'Bearer ' + APIToken,
+            })
+        }).then(res => res.json()).then((res) => console.log(res));
+        
+        
+        // then(res => res.json()).then((res) => {
+        //     const branchResponse: Branch[] = res;
+        //     branchesData.push(...branchResponse);
+        // })
+    }
 
     const value: DataContextProps = {
         usersData,
@@ -102,6 +122,7 @@ export const DataContextProvider = (props: LayoutProps) => {
         setCredentials,
         fetchUsers,
         fetchCommits,
+        fetchBranches,
     };
 
     return <DataContext.Provider value={value}>{props.children}</DataContext.Provider>
