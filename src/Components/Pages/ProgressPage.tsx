@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState } from 'react';
 import { DataContext } from '../../Resources/DataContext';
-import { Commit, MergeRequest } from '../../Resources/ResponseTypes'
+import { Commit, MergeRequest } from '../../Resources/ResponseTypes';
 import MergeDetailCard from '../DetailCards/MergeDetailCard';
 const ProgressPage = () => {
 
