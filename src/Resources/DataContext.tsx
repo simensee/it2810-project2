@@ -5,7 +5,7 @@ import { Commit, User, Branch } from './ResponseTypes';
 interface DataContextProps {
     usersData: User[],
     commitData: Commit[],
-    // branchesData: Branch[],
+    branchesData: Branch[],
     isAuthorized: boolean,
     setIsAuthorized: Function,
     setCredentials: Function,
@@ -17,6 +17,7 @@ interface DataContextProps {
 export const DataContext = createContext<DataContextProps>({
     usersData: [],
     commitData: [],
+    branchesData: [],
     isAuthorized: false,
     setIsAuthorized: () => null,
     setCredentials: () => null,
@@ -38,6 +39,7 @@ export const DataContextProvider = (props: LayoutProps) => {
     
     let usersData: User[] = [];
     let commitData: Commit[] = [];
+    let branchesData: Branch[] = [];
     
     // Login is set to true for easier development
     const [isAuthorized, setAuthorized] = useState(true);
@@ -105,18 +107,18 @@ export const DataContextProvider = (props: LayoutProps) => {
                 'Content-Type': 'application/json', //tell fetch that you sending in a json
                 'Authorization': 'Bearer ' + APIToken,
             })
-        }).then(res => res.json()).then((res) => console.log(res));
+        }).then(res => res.json()).then((res) => {
+            const branchResponse: Branch[] = res;
+            console.log("hei");
+            branchesData.push(...branchResponse);
+        });
         
-        
-        // then(res => res.json()).then((res) => {
-        //     const branchResponse: Branch[] = res;
-        //     branchesData.push(...branchResponse);
-        // })
     }
 
     const value: DataContextProps = {
         usersData,
         commitData,
+        branchesData,
         isAuthorized,
         setIsAuthorized,
         setCredentials,
