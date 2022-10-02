@@ -68,6 +68,7 @@ export interface Commit {
 }
 
 export interface Branch {
+    id:                   string;
     name:                 string;
     commit:               Commit;
     merged:               boolean;

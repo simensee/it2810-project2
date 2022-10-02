@@ -14,6 +14,7 @@ function App() {
   const setup = async () => {
     await ctx.fetchUsers();
     await ctx.fetchCommits();
+    await ctx.fetchBranches();
   }
 
   const [loadComplete, setLoadComplete] = useState(false);

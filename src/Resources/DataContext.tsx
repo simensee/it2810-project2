@@ -100,6 +100,7 @@ export const DataContextProvider = (props: LayoutProps) => {
     const fetchBranches = async () => {
         const branchUrl = baseUrl.concat('repository/branches')
         let fetchBranchUrl: URL = new URL(branchUrl)
+        console.log(fetchBranchUrl)
 
         await fetch(fetchBranchUrl, {
             method: 'GET',
