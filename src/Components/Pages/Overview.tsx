@@ -40,6 +40,14 @@ const Overview = () => {
             userNames.push(user.name);
         }
     })
+
+    const backgroundColor = [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',];
     
     const commitData = {
         labels: dateList,
@@ -47,7 +55,7 @@ const Overview = () => {
             label: 'Commits',
             data: dateCount.map((count) => count),
             borderColor: 'rgb(53, 162, 235)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
             fill: true,
             
         }],
@@ -66,18 +74,14 @@ const Overview = () => {
     }
     console.log(commitData);
 
+
     const userData = {
         labels: userNames,
         datasets: [{
             label: 'Commits',
             data: userList.map((user) => ctx.getUserTotalCommits(user)),
             borderColor: 'rgb(53, 162, 235)',
-            backgroundColor: [
-                'rgba(53, 162, 235, 0.5)',
-                'rgba(255, 99, 132, 0.5)',
-                // 'rgba(255, 206, 86, 0.5)',
-                // 'rgba(75, 192, 192, 0.5)',
-            ],
+            backgroundColor: userNames.map((name) => backgroundColor[userNames.indexOf(name)]),
             fill: true,
         }]
     }
@@ -87,10 +91,10 @@ const Overview = () => {
 
     return (
         <div className='flex items-center justify-center flex-col'>
-            <div className='w-11/12'>
+            <div className='w-11/12 mb-20'>
                 <Line data={commitData} options={options}/>
             </div>
-            <div className='w-4/12 mt-7'>
+            <div className='w-4/12 mt-3 mb-20'>
                 <Pie data={userData}/>
             </div>
         </div>
