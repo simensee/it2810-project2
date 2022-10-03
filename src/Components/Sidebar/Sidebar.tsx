@@ -5,6 +5,7 @@ import NavButton from './NavButton'
 import ArticleIcon from '@mui/icons-material/Article';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import { DataContext } from '../../Resources/DataContext';
+import { FormatListBulleted } from '@mui/icons-material';
 
 const Sidebar = () => {
 const ctx = useContext(DataContext);
@@ -43,10 +44,18 @@ const ctx = useContext(DataContext);
             </li>
             <li>
               <NavButton
-                route={AppRoutes.brancesPage}
+                route={AppRoutes.branchesPage}
               >
                 <AccountTreeIcon />
                 <span className="flex-1 ml-3 whitespace-nowrap">Branches</span>
+              </NavButton>
+            </li>
+            <li>
+              <NavButton
+                route={AppRoutes.issuesPage}
+              >
+                <FormatListBulleted />
+                <span className="flex-1 ml-3 whitespace-nowrap">Issues</span>
               </NavButton>
             </li>
             <li>
