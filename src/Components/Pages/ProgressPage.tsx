@@ -4,9 +4,10 @@ import { Commit, MergeRequest, User } from '../../Resources/ResponseTypes';
 import MergeDetailCard from '../DetailCards/MergeDetailCard';
 import DatePicker from 'react-datepicker';
 import { DropDownList } from "@progress/kendo-react-dropdowns";
-//import { Dropdown } from 'flowbite-react';
 import Dropdown from '../Components/Dropdown';
 import "react-datepicker/dist/react-datepicker.css";
+import CommitList from '../ProgressPageComponents/CommitList';
+import MergeRQList from '../ProgressPageComponents/MergeRQList';
 
 
 
@@ -15,9 +16,6 @@ function dateIsValid(date: Date) {
 }
 
 const ProgressPage = () => {
-
-  const [render, setRender] = useState<number>(1);
-
   const [focusMergeRequest, setFocusMergeRequest] = useState<MergeRequest>({
     id: 0,
   });
@@ -28,13 +26,6 @@ const ProgressPage = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (render === 1) {
-      setRender(0);
-    }
-    else {
-      setRender(1);
-
-    }
     localStorage.setItem("startDate", startDate);
     setStartDate(startDate);
     localStorage.setItem("endDate", endDate);
@@ -46,6 +37,7 @@ const ProgressPage = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [username, setUsername] = useState("");
+  const [displayCommits, setDisplayCommits] = useState(false);
 
   const ctx = useContext(DataContext);
   const mergeList: MergeRequest[] = ctx.mergeData;
@@ -72,60 +64,58 @@ const ProgressPage = () => {
   };
 
   useEffect(() => {
-    const startDateStr: string = localStorage.getItem('startDate') ?? (new Date()).toISOString();
+    const startDateStr: string = localStorage.getItem('startDate') ?? (new Date()).toISOString().split('T')[0];
     setStartDate(startDateStr);
-    const endDateStr: string = localStorage.getItem('endDate') ?? (new Date()).toISOString();
+    const endDateStr: string = localStorage.getItem('endDate') ?? (new Date()).toISOString().split('T')[0];
     setEndDate(endDateStr);
     const name: string = localStorage.getItem('user') ?? "";
     setUsername(name);
-
-    updateRender();
+    updateResult();
   }, [username]);
 
-  const updateRender = () => {
-    // setRenderedMergeList([]);
-    mergeList.map((merge: MergeRequest) => {
-      if (merge.created_at!.split("T")[0] >= startDate.split("T")[0] && merge.created_at!.split("T")[0] <= endDate.split("T")[0] && merge.author?.username == username) {
-
-        setRenderedMergeList(mergeList => [...mergeList, merge]);
+  const updateResult = () => {
+    const filteredMergeList: MergeRequest[] = mergeList.filter((m) => {
+      if (
+        m.created_at!.split("T")[0] >= startDate && 
+        m.created_at!.split('T')[0] <= endDate && 
+        m.author?.username == username) {
+        return m;
       }
-
     });
+    setRenderedMergeList(filteredMergeList);
 
-
-    /*for (let i = 0; i < mergeList.length; i++) {
+    const filteredCommits: Commit[] = commitList.filter((c) => {
       if (
-        mergeList[i].createdAt! >= startDate &&
-        mergeList[i].createdAt! <= endDate &&
-        mergeList[i].author!.username! === username
+        c.committed_date!.split("T")[0] >= startDate.split("T")[0] &&
+        c.committed_date!.split("T")[0] <= endDate.split("T")[0] &&
+        c.author_email!.split('@')[0] === username
       ) {
-        console.log("Inside loop");
-        console.log("Username" + mergeList[i].author!.username);
-        console.log("Created at" + mergeList[i].createdAt);
-        setRenderedMergeList(mergeList => [...mergeList, mergeList[i]]);
+        return c;
       }
-    }*/
-
-    setRenderedCommitList([]);
-    for (let i = 0; i < commitList.length; i++) {
-      if (
-        commitList[i].committed_date!.split("T")[0] >= startDate.split("T")[0] &&
-        commitList[i].committed_date!.split("T")[0] <= endDate.split("T")[0] &&
-        commitList[i].author_email!.split('@')[0] === username
-      ) {
-
-        setRenderedCommitList(commitList => [...commitList, commitList[i]]);
-      }
-    }
+    });
+    setRenderedCommitList(filteredCommits);
   };
 
-
   return (
-
-
-    <div className="flex flex-row items-end">
-      <div className="flex flex-col items-center justify-center">
-        <form onSubmit={handleSubmit}>
+    <div className="w-full h-full flex flex-col gap-4">
+      <div className="flex flex-row w-full items-center justify-between px-4 bg-white rounded-md">
+        <button onClick={() => setDisplayCommits(!displayCommits)}>
+          toggle
+        </button>
+        <form
+          className='flex'
+          onSubmit={handleSubmit}>
+          <div className='flex'>
+            <DatePicker
+              className='right-auto top-11 transform-none !important'
+              selected={dateIsValid(new Date(startDate)) ? new Date(startDate) : new Date()}
+              onChange={(date: Date) => setStartDate(date.toISOString().split('T')[0])}
+              onCalendarClose={() => updateResult()} />
+            <DatePicker
+              selected={dateIsValid(new Date(endDate)) ? new Date(endDate) : new Date()}
+              onChange={(date: Date) => setEndDate(date.toISOString().split('T')[0])}
+              onCalendarClose={() => updateResult()} />
+          </div>
           <button
             className={'relative font-normal text-left whitespace-no-wrap align-middle select-none text-sm leading-normal rounded cursor-pointer ${showDropDown ? "active" : undefined}'}
             onClick={(): void => toggleDropDown()}
@@ -143,49 +133,14 @@ const ProgressPage = () => {
               />
             )}
           </button>
-
-
-
-          <div>
-
-            <DatePicker className='right-auto top-11 transform-none !important' selected={dateIsValid(new Date(startDate)) ? new Date(startDate) : new Date()} onChange={(date: Date) => setStartDate(date.toISOString())} />
-            <DatePicker selected={dateIsValid(new Date(endDate)) ? new Date(endDate) : new Date()} onChange={(date: Date) => setEndDate(date.toISOString())} />
-
-          </div>
-
-          <input type="submit" value="Submit" />
-
         </form>
-
-        <div className='grid grid-cols-3 gap-4 '>
-
-          <div className='col-span-2 grid grid-cols-3 gap-4 '>
-
-            {renderedMergeList.map((m, i) => {
-              // Lise sett in usercard her :)
-              console.log(m.id);
-              return <div key={m.id} className='p-8 hover:outline flex pointer-events-auto' onClick={() => {
-                setFocusMergeRequest(m)
-              }}>
-                {m.id} - {m.title} - {m.author!.username!}
-              </div>
-            })}
-          </div>
-          <div className='col-span-2 grid grid-cols-3 gap-4 '>
-            {renderedCommitList.map((c, i) => {
-              return <div key={i} className='p-8 hover:outline flex pointer-events-auto' onClick={() => {
-                setFocusCommit(c);
-              }}>
-                {/* {c.id} - {c.title} - {c.author_email!.split('@')[0]} */}
-              </div>
-            })}
-          </div>
-          <div className='w-full'>
-            <MergeDetailCard
-              focusMerge={focusMergeRequest}
-            />
-          </div>
-        </div>
+      </div>
+      <div className='w-full h-full bg-white rounded-md overflow-auto'>
+        {(displayCommits) ? 
+        <CommitList commitList={renderedCommitList}/> 
+        :
+        <MergeRQList mergeRequestList={renderedMergeList}/>
+      }
       </div>
     </div>
   )
