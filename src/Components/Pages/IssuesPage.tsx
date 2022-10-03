@@ -45,8 +45,8 @@ const IssuePage = () => {
   });
   
   return (
-    <div className='grid grid-cols-3 gap-4'>
-      <div className='bg-white rounded-md col-span-2 grid grid-cols-3 gap-4'>
+    <div className='grid h-full grid-cols-3 gap-4'>
+      <div className='bg-white rounded-md col-span-2 grid grid-cols-3 gap-4 overflow-auto'>
         <div className='py-4 px-2 rounded-md'>
           <span className='text-xl'>Todo ({todoIssues.length})</span>
           <Divider className='py-1'/>
