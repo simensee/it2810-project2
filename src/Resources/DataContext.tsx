@@ -1,10 +1,11 @@
 import React, { createContext, useState, ReactNode } from 'react'
-import { Commit, User, MergeRequest, Issue } from './ResponseTypes';
+import { Commit, User, MergeRequest, Issue, Branch } from './ResponseTypes';
 
 
 interface DataContextProps {
     usersData: User[],
     commitData: Commit[],
+    branchesData: Branch[],
     mergeData: MergeRequest[],
     issueData: Issue[],
     isAuthorized: boolean,
@@ -12,6 +13,7 @@ interface DataContextProps {
     setCredentials: Function,
     fetchUsers: Function,
     fetchCommits: Function,
+    fetchBranches: Function,
     fetchMergeRequests: Function,
     fetchIssues: Function,
 
@@ -20,6 +22,7 @@ interface DataContextProps {
 export const DataContext = createContext<DataContextProps>({
     usersData: [],
     commitData: [],
+    branchesData: [],
     mergeData: [],
     issueData: [],
     isAuthorized: false,
@@ -27,6 +30,7 @@ export const DataContext = createContext<DataContextProps>({
     setCredentials: () => null,
     fetchUsers: () => null,
     fetchCommits: () => null,
+    fetchBranches: () => null,
     fetchMergeRequests: () => null,
     fetchIssues: () => null,
 });
@@ -44,6 +48,7 @@ export const DataContextProvider = (props: LayoutProps) => {
     
     let usersData: User[] = [];
     let commitData: Commit[] = [];
+    let branchesData: Branch[] = [];
     let mergeData: MergeRequest[] = [];
     let issueData: Issue[] = [];
     
@@ -103,6 +108,24 @@ export const DataContextProvider = (props: LayoutProps) => {
         }
     }
 
+    const fetchBranches = async () => {
+        const branchUrl = baseUrl.concat('repository/branches')
+        let fetchBranchUrl: URL = new URL(branchUrl)
+        console.log(fetchBranchUrl)
+
+        await fetch(fetchBranchUrl, {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json', //tell fetch that you sending in a json
+                'Authorization': 'Bearer ' + APIToken,
+            })
+        }).then(res => res.json()).then((res) => {
+            const branchResponse: Branch[] = res;
+            console.log("hei");
+            branchesData.push(...branchResponse);
+        });
+        
+    }
     const fetchMergeRequests = async () => {
         const mergeUrl = baseUrl.concat('merge_requests');
         let fetchMergeUrl: URL = new URL(mergeUrl + "?pagination=keyset");
@@ -153,6 +176,7 @@ export const DataContextProvider = (props: LayoutProps) => {
     const value: DataContextProps = {
         usersData,
         commitData,
+        branchesData,
         mergeData,
         issueData,
         isAuthorized,
@@ -160,6 +184,7 @@ export const DataContextProvider = (props: LayoutProps) => {
         setCredentials,
         fetchUsers,
         fetchCommits,
+        fetchBranches,
         fetchMergeRequests,
         fetchIssues,
     };

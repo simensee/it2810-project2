@@ -44,7 +44,7 @@ const ctx = useContext(DataContext);
             </li>
             <li>
               <NavButton
-                route={AppRoutes.brancesPage}
+                route={AppRoutes.branchesPage}
               >
                 <AccountTreeIcon />
                 <span className="flex-1 ml-3 whitespace-nowrap">Branches</span>
