@@ -66,6 +66,18 @@ export interface Commit {
     webUrl?:         string;
 }
 
+export interface Branch {
+    id:                   string;
+    name:                 string;
+    commit:               Commit;
+    merged:               boolean;
+    protected:            boolean;
+    developers_can_push:  boolean;
+    developers_can_merge: boolean;
+    can_push:             boolean;
+    default:              boolean;
+    web_url:              string;
+}
 export interface MergeRequest {
     id?:                          number;
     iid?:                         number;
@@ -138,10 +150,10 @@ export interface Issue {
     title?:                string;
     description?:          string;
     state?:                string;
-    createdAt?:            Date;
+    created_at?:           string;
     updatedAt?:            Date;
-    closedAt?:             null;
-    closedBy?:             null;
+    closed_at?:             string;
+    closed_by?:             User;
     labels?:               string[];
     milestone?:            null;
     assignees?:            User[];
@@ -174,3 +186,10 @@ export interface Links {
     project?:             string;
     closedAsDuplicateOf?: null;
 }
+
+export interface LabelColor {
+    name: string;
+    color: string;
+}
+
+
