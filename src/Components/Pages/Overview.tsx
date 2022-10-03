@@ -3,6 +3,7 @@ import { DataContext } from '../../Resources/DataContext';
 import { Commit, User } from '../../Resources/ResponseTypes';
 import { Chart as ChartJS, registerables } from 'chart.js';
 import { Chart, Line, Pie } from 'react-chartjs-2'
+import { grid } from 'tailwindcss-classnames';
 ChartJS.register(...registerables);
 // import Graph from '../Graph';
 
@@ -11,6 +12,7 @@ const Overview = () => {
     const ctx = useContext(DataContext);
     const commitList: Commit[] = ctx.commitData;
     const userList: User[] = ctx.usersData;
+    const userNames: string[] = [];
     // console.log('commitList length', commitList.length);
 
     const dateList: string[] = [""];
@@ -33,7 +35,6 @@ const Overview = () => {
         return count;
     })
 
-    const userNames: string[] = [];
 
     const usersWithCommits = userList.map((user) => {
         if (ctx.getUserTotalCommits(user) > 0) {
@@ -65,13 +66,39 @@ const Overview = () => {
 
     var options = {
         scales: {
+            x: {
+                ticks: {
+                    color: 'black',
+                }
+            },
             y: {
                 beginAtZero: true,
-                min: 0,
                 max: 35,
+                color: 'black',
+                ticks: {
+                    color: 'black',
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    color: 'black',
+                }
             }
         }
-    }
+
+    };
+
+    var options2 = {
+        plugins: {
+            legend: {
+                labels: {
+                    color: 'black',
+                }
+            }
+        }
+    };
     console.log(commitData);
 
 
@@ -83,8 +110,19 @@ const Overview = () => {
             borderColor: 'rgb(53, 162, 235)',
             backgroundColor: userNames.map((name) => backgroundColor[userNames.indexOf(name)]),
             fill: true,
-        }]
-    }
+        }],
+        borderColor: 'black',
+        borderwidth: 1,
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'black',
+                    }
+                }
+            }
+        }
+    };
 
     ctx.usersData.map((user) => {console.log(user.name ,ctx.getUserTotalCommits(user))});
 
@@ -94,8 +132,8 @@ const Overview = () => {
             <div className='w-11/12 mb-20'>
                 <Line data={commitData} options={options}/>
             </div>
-            <div className='w-4/12 mt-3 mb-20'>
-                <Pie data={userData}/>
+            <div className='w-4/12 mt-3 mb-20 text-black'>
+                <Pie data={userData} options={options2}/>
             </div>
         </div>
     )
