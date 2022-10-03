@@ -15,6 +15,9 @@ function App() {
     await ctx.fetchUsers();
     await ctx.fetchCommits();
     await ctx.fetchBranches();
+    await ctx.fetchMergeRequests();
+    await ctx.fetchIssues();
+    
   }
 
   const [loadComplete, setLoadComplete] = useState(false);

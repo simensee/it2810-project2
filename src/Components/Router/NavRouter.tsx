@@ -9,6 +9,7 @@ import LoginPage from '../Pages/LoginPage';
 import ProgressPage from '../Pages/ProgressPage';
 import Readme from '../Pages/Readme';
 import UsersPage from '../Pages/UsersPage';
+import IssuesPage from '../Pages/IssuesPage';
 import { AppRoutes } from './AppRoutes';
 import ProtectedRoute from './ProtectedRoute';
 import UnProtectedRoute from './UnProtectedRoute';
@@ -24,6 +25,7 @@ const NavRouter = () => {
         <Route path={AppRoutes.usersPage} element={<UsersPage />} />
         <Route path={AppRoutes.progressPage} element={<ProgressPage />} />
         <Route path={AppRoutes.branchesPage} element={<BranchesPage />} />
+        <Route path={AppRoutes.issuesPage} element={<IssuesPage />} />
       </Route>
     </Routes>
   )

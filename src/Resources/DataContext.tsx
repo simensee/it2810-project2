@@ -1,29 +1,38 @@
 import React, { createContext, useState, ReactNode } from 'react'
-import { Commit, User, Branch } from './ResponseTypes';
+import { Commit, User, MergeRequest, Issue, Branch } from './ResponseTypes';
 
 
 interface DataContextProps {
     usersData: User[],
     commitData: Commit[],
     branchesData: Branch[],
+    mergeData: MergeRequest[],
+    issueData: Issue[],
     isAuthorized: boolean,
     setIsAuthorized: Function,
     setCredentials: Function,
     fetchUsers: Function,
     fetchCommits: Function,
     fetchBranches: Function,
+    fetchMergeRequests: Function,
+    fetchIssues: Function,
+
 }
 
 export const DataContext = createContext<DataContextProps>({
     usersData: [],
     commitData: [],
     branchesData: [],
+    mergeData: [],
+    issueData: [],
     isAuthorized: false,
     setIsAuthorized: () => null,
     setCredentials: () => null,
     fetchUsers: () => null,
     fetchCommits: () => null,
     fetchBranches: () => null,
+    fetchMergeRequests: () => null,
+    fetchIssues: () => null,
 });
 
 export interface LayoutProps {
@@ -40,6 +49,8 @@ export const DataContextProvider = (props: LayoutProps) => {
     let usersData: User[] = [];
     let commitData: Commit[] = [];
     let branchesData: Branch[] = [];
+    let mergeData: MergeRequest[] = [];
+    let issueData: Issue[] = [];
     
     // Login is set to true for easier development
     const [isAuthorized, setAuthorized] = useState(true);
@@ -115,17 +126,67 @@ export const DataContextProvider = (props: LayoutProps) => {
         });
         
     }
+    const fetchMergeRequests = async () => {
+        const mergeUrl = baseUrl.concat('merge_requests');
+        let fetchMergeUrl: URL = new URL(mergeUrl + "?pagination=keyset");
+        let page: number = 1;
+        let finished: boolean = false;
+        while (!finished) {
+        await fetch(fetchMergeUrl + "&page=" + page, {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + APIToken,
+            })
+        }).then(res => res.json()).then((res) => {
+            if (res.length < 20) finished = true;
+            console.log(res.length);
+            const mergeResponse: MergeRequest[] = res;
+            mergeData.push(...mergeResponse);
+            page++;
+        });
+        }
+    }
+
+    const fetchIssues = async () => {
+        const issueUrl = baseUrl.concat('issues');
+        let fetchIssueUrl: URL = new URL(issueUrl + "?pagination=keyset");
+        let page: number = 1;
+        let finished: boolean = false;
+        while (!finished) {
+        await fetch(fetchIssueUrl + "&page=" + page, {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + APIToken,
+            })
+        }).then(res => res.json()).then((res) => {
+            if (res.length < 20) finished = true;
+            console.log(res.length);
+            const issueResponse: Issue[] = res;
+            issueData.push(...issueResponse);
+            page++;
+        });
+        }
+    }
+
+
+    
 
     const value: DataContextProps = {
         usersData,
         commitData,
         branchesData,
+        mergeData,
+        issueData,
         isAuthorized,
         setIsAuthorized,
         setCredentials,
         fetchUsers,
         fetchCommits,
         fetchBranches,
+        fetchMergeRequests,
+        fetchIssues,
     };
 
     return <DataContext.Provider value={value}>{props.children}</DataContext.Provider>
