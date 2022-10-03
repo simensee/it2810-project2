@@ -16,7 +16,7 @@ const UserDetailCard = ({ focusUser }: UserDetailCardProps) => {
         const resp: Commit[] | Commit = ctx.commitData;
         let n: number = 0;
         for (let i = 0; i < resp.length; i++) {
-            if (user.username === resp[i].author_name) {
+            if (user.username === resp[i].authorName) {
                 n += 1
             }
         }
