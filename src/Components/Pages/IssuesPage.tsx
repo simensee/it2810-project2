@@ -1,23 +1,40 @@
-import React, { useContext, useState } from 'react'
+import { Divider } from '@mui/material';
+import React, { useContext, useEffect, useState } from 'react'
 import { DataContext } from '../../Resources/DataContext';
-import { Commit, Issue, MergeRequest } from '../../Resources/ResponseTypes'
+import { Commit, Issue, LabelColor, MergeRequest } from '../../Resources/ResponseTypes'
 import IssueDetailCard from '../DetailCards/IssueDetailCard';
 import IssueCard from '../IssueCard';
+
 const IssuePage = () => {
 
-  const [displayIssueDetails, toggleIssueDetails] = useState(false);
+  const [hasColors, setHasColors] = useState(false);
   const [focusIssue, setFocusIssue] = useState<Issue>({
     id: 0,
   });
 
   const ctx = useContext(DataContext);
-  const issueList: Issue[] = ctx.issueData;
+
+  const setup = async () => {
+    await ctx.fetchLabelColors().then(setHasColors(true));
+  }
+
+  const handleIssueClick = (issue: Issue) => {
+    setFocusIssue(issue);
+    sessionStorage.setItem('focusedIssue', issue.id!.toString());
+    console.log(issue.id);
+  }
+
+  useEffect(() => {
+    setup();
+    const prevSelectedIssue: Issue = ctx.issueData.find(i => i.id?.toString() === sessionStorage.getItem('focusedIssue')) ?? {id: 0,};
+    setFocusIssue(prevSelectedIssue);
+  }, []);
+
   const todoIssues: Issue[] = [];
   const doingIssues: Issue[] = [];
   const doneIssues: Issue[] = [];
 
-
-  issueList.map((i) => {
+  ctx.issueData.map((i) => {
     if (i.labels?.includes('Todo')) {
       todoIssues.push(i);
     } else if (i.labels?.includes('Doing')) {
@@ -26,31 +43,40 @@ const IssuePage = () => {
       doneIssues.push(i);
     }
   });
-
+  
   return (
     <div className='grid grid-cols-3 gap-4'>
-      <div className='col-span-2 grid grid-cols-3 gap-4'>
-        <div className='bg-white py-4 px-2'>
-          <span>TODO</span>
+      <div className='bg-white rounded-md col-span-2 grid grid-cols-3 gap-4'>
+        <div className='py-4 px-2 rounded-md'>
+          <span className='text-xl'>Todo ({todoIssues.length})</span>
+          <Divider className='py-1'/>
+          {hasColors ? 
           <div className='flex flex-col gap-3 mt-4'>
             {todoIssues.map((i) => {
-              return <IssueCard handleOnClick={(thisIssue) => setFocusIssue(thisIssue)} key={i.id} issue={i} />
+              return <IssueCard handleOnClick={(thisIssue) => handleIssueClick(thisIssue)} key={i.id} issue={i} selected={(focusIssue.id === i.id)}/>
             })}
           </div>
+          : null
+          }
         </div>
-        <div className='bg-white py-4 px-2'>
-          <span>Doing</span>
+        <div className='bg-white py-4 px-2 rounded-md'>
+          <span className='text-xl'>Doing ({doingIssues.length})</span>
+          <Divider className='py-1'/>
+          {hasColors ?
           <div className='flex flex-col gap-3 mt-4'>
             {doingIssues.map((i) => {
-              return <IssueCard handleOnClick={(thisIssue) => setFocusIssue(thisIssue)} key={i.id} issue={i} />
+              return <IssueCard handleOnClick={(thisIssue) => handleIssueClick(thisIssue)} key={i.id} issue={i} selected={(focusIssue.id === i.id)}/>
             })}
           </div>
+          : null
+          }
         </div>
-        <div className='bg-white py-4 px-2'>
-          <span>Done</span>
+        <div className='bg-white py-4 px-2 rounded-md'>
+          <span className='text-xl'>Done ({doneIssues.length})</span>
+          <Divider className='py-1'/>
           <div className='flex flex-col gap-3 mt-4'>
             {doneIssues.map((i) => {
-              return <IssueCard handleOnClick={(thisIssue) => setFocusIssue(thisIssue)} key={i.id} issue={i} />
+              return <IssueCard handleOnClick={(thisIssue) => handleIssueClick(thisIssue)} key={i.id} issue={i} selected={(focusIssue.id === i.id)}/>
             })}
           </div>
         </div>
@@ -63,14 +89,5 @@ const IssuePage = () => {
     </div>
   )
 }
-
-// {issueList.map((m, i) => {
-//   // Lise sett in usercard her :)
-//   return <div key={m.id} className='p-8 hover:outline flex pointer-events-auto' onClick={() => {
-//     setFocusIssue(m)
-//     }}>
-//     {m.id} - {m.title}
-//   </div>
-// })}
 
 export default IssuePage
