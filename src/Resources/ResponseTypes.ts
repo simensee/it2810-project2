@@ -151,10 +151,10 @@ export interface Issue {
     title?:                string;
     description?:          string;
     state?:                string;
-    createdAt?:            Date;
+    created_at?:           string;
     updatedAt?:            Date;
-    closedAt?:             null;
-    closedBy?:             null;
+    closed_at?:             string;
+    closed_by?:             User;
     labels?:               string[];
     milestone?:            null;
     assignees?:            User[];
@@ -190,6 +190,9 @@ export interface Links {
     closedAsDuplicateOf?: null;
 }
 
-
+export interface LabelColor {
+    name: string;
+    color: string;
+}
 
 
