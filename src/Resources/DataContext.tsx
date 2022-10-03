@@ -1,5 +1,5 @@
 import React, { createContext, useState, ReactNode } from 'react'
-import { Commit, User, MergeRequest, Issue } from './ResponseTypes';
+import { Commit, User, MergeRequest, Issue, LabelColor } from './ResponseTypes';
 
 
 interface DataContextProps {
@@ -7,6 +7,7 @@ interface DataContextProps {
     commitData: Commit[],
     mergeData: MergeRequest[],
     issueData: Issue[],
+    labelColors: LabelColor[],
     isAuthorized: boolean,
     setIsAuthorized: Function,
     setCredentials: Function,
@@ -14,7 +15,7 @@ interface DataContextProps {
     fetchCommits: Function,
     fetchMergeRequests: Function,
     fetchIssues: Function,
-
+    fetchLabelColors: Function,
 }
 
 export const DataContext = createContext<DataContextProps>({
@@ -22,6 +23,7 @@ export const DataContext = createContext<DataContextProps>({
     commitData: [],
     mergeData: [],
     issueData: [],
+    labelColors: [],
     isAuthorized: false,
     setIsAuthorized: () => null,
     setCredentials: () => null,
@@ -29,6 +31,7 @@ export const DataContext = createContext<DataContextProps>({
     fetchCommits: () => null,
     fetchMergeRequests: () => null,
     fetchIssues: () => null,
+    fetchLabelColors: () => Promise<LabelColor[]>,
 });
 
 export interface LayoutProps {
@@ -46,6 +49,7 @@ export const DataContextProvider = (props: LayoutProps) => {
     let commitData: Commit[] = [];
     let mergeData: MergeRequest[] = [];
     let issueData: Issue[] = [];
+    let labelColors: LabelColor[] = [];
     
     // Login is set to true for easier development
     const [isAuthorized, setAuthorized] = useState(true);
@@ -147,14 +151,27 @@ export const DataContextProvider = (props: LayoutProps) => {
         }
     }
 
-
-    
+    const fetchLabelColors = async () => {
+        const labelUrl = baseUrl.concat('labels');
+        let fetchLabelUrl: URL = new URL(labelUrl);
+        await fetch(fetchLabelUrl, {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + APIToken,
+            })
+        }).then((res) => res.json()).then((res) => {
+            const tempColors: LabelColor[] = res;
+            labelColors.push(...tempColors);
+        });
+    }
 
     const value: DataContextProps = {
         usersData,
         commitData,
         mergeData,
         issueData,
+        labelColors,
         isAuthorized,
         setIsAuthorized,
         setCredentials,
@@ -162,6 +179,7 @@ export const DataContextProvider = (props: LayoutProps) => {
         fetchCommits,
         fetchMergeRequests,
         fetchIssues,
+        fetchLabelColors,
     };
 
     return <DataContext.Provider value={value}>{props.children}</DataContext.Provider>
