@@ -56,7 +56,7 @@ export interface Commit {
     parentIds?:      string[];
     title?:           string;
     message?:         string;
-    authorName?:     string;
+    author_name?:     string;
     author_email?:    string;
     authoredDate?:   Date;
     committerName?:  string;
@@ -166,8 +166,6 @@ export interface Issue {
     movedToID?:            null;
     serviceDeskReplyTo?:   null;
 }
-
-
 
 export interface Links {
     self?:                string;
