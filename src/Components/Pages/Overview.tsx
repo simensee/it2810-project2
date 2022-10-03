@@ -33,18 +33,12 @@ const Overview = () => {
         return count;
     })
 
-    const usernames = userList.map((user) => {
-        return user.name;
-    })
+    const userNames: string[] = [];
 
-    const userCommits = userList.map((user) => {
-        let count = 0;
-        commitList.forEach((commit) => {
-            if (commit.author_name === user.name) {
-                count++;
-            }
-        })
-        return count;
+    const usersWithCommits = userList.map((user) => {
+        if (ctx.getUserTotalCommits(user) > 0) {
+            userNames.push(user.name);
+        }
     })
     
     const commitData = {
@@ -53,7 +47,7 @@ const Overview = () => {
             label: 'Commits',
             data: dateCount.map((count) => count),
             borderColor: 'rgb(53, 162, 235)',
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
             fill: true,
             
         }],
@@ -73,23 +67,30 @@ const Overview = () => {
     console.log(commitData);
 
     const userData = {
-        labels: usernames,
+        labels: userNames,
         datasets: [{
             label: 'Commits',
-            data: userCommits.map((count) => count),
+            data: userList.map((user) => ctx.getUserTotalCommits(user)),
             borderColor: 'rgb(53, 162, 235)',
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
+            backgroundColor: [
+                'rgba(53, 162, 235, 0.5)',
+                'rgba(255, 99, 132, 0.5)',
+                // 'rgba(255, 206, 86, 0.5)',
+                // 'rgba(75, 192, 192, 0.5)',
+            ],
             fill: true,
         }]
     }
 
+    ctx.usersData.map((user) => {console.log(user.name ,ctx.getUserTotalCommits(user))});
+
 
     return (
-        <div>
-            <div className='max-w-screen-lg'>
+        <div className='flex items-center justify-center flex-col'>
+            <div className='w-11/12'>
                 <Line data={commitData} options={options}/>
             </div>
-            <div className='w-4/12'>
+            <div className='w-4/12 mt-7'>
                 <Pie data={userData}/>
             </div>
         </div>
