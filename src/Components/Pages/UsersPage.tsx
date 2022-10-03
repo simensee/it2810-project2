@@ -7,22 +7,28 @@ import UserCard from '../UserCard';
 
 const UsersPage = () => {
 
-  const [displayUserDetails, toggleUserDetails] = useState(false);
   const [focusUser, setFocusUser] = useState<User>({
-    name: 'Empty User',
+    name: 'Empty',
   });
 
   const ctx = useContext(DataContext);
-  const userList: User[] = ctx.usersData;
 
+  const handleUserClick = (u: User) => {
+    setFocusUser(u);
+    sessionStorage.setItem('focusedUser', u.id!.toString());
+  }
+
+  useEffect(() => {
+    const prevUser: User = ctx.usersData.find(u => u.id?.toString() === sessionStorage.getItem('focusedUser')) ?? {name: 'Empty'};
+    setFocusUser(prevUser);
+  }, []);
  
 
   return (
     <div className='grid grid-cols-3 gap-4'>
-      <div className='col-span-2 grid grid-cols-3 gap-4'>
-        {userList.map((u, i) => {
-          // Lise sett in usercard her :)
-          return <UserCard key={u.id} user={u}></UserCard>
+      <div className='col-span-2 grid grid-cols-4 gap-y-4'>
+        {ctx.usersData.map((u, i) => {
+          return <UserCard key={u.id} user={u} handleClick={(u) => handleUserClick(u)} isSelected={(u.id === focusUser.id)}></UserCard>
         })}
       </div>
       <div className='w-full'>
