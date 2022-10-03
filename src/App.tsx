@@ -14,6 +14,7 @@ function App() {
   const setup = async () => {
     await ctx.fetchUsers();
     await ctx.fetchCommits();
+    await ctx.fetchBranches();
     await ctx.fetchMergeRequests();
     await ctx.fetchIssues();
     

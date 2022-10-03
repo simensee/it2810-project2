@@ -24,7 +24,7 @@ const NavRouter = () => {
         <Route path={AppRoutes.readme} element={<Readme />} />
         <Route path={AppRoutes.usersPage} element={<UsersPage />} />
         <Route path={AppRoutes.progressPage} element={<ProgressPage />} />
-        <Route path={AppRoutes.brancesPage} element={<BranchesPage />} />
+        <Route path={AppRoutes.branchesPage} element={<BranchesPage />} />
         <Route path={AppRoutes.issuesPage} element={<IssuesPage />} />
       </Route>
     </Routes>

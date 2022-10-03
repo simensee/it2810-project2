@@ -67,6 +67,18 @@ export interface Commit {
     web_url:         string;
 }
 
+export interface Branch {
+    id:                   string;
+    name:                 string;
+    commit:               Commit;
+    merged:               boolean;
+    protected:            boolean;
+    developers_can_push:  boolean;
+    developers_can_merge: boolean;
+    can_push:             boolean;
+    default:              boolean;
+    web_url:              string;
+}
 export interface MergeRequest {
     id?:                          number;
     iid?:                         number;
