@@ -51,8 +51,8 @@ export interface PushData {
 
 export interface Commit {
     id?:              string;
-    shortId?:        string;
-    createdAt?:      Date;
+    short_id?:        string;
+    created_at?:      string;
     parentIds?:      string[];
     title?:           string;
     message?:         string;
@@ -61,7 +61,7 @@ export interface Commit {
     authoredDate?:   Date;
     committerName?:  string;
     committerEmail?: string;
-    committedDate?:  Date;
+    committed_date?:  string;
     trailers?:       boolean;
     webUrl?:         string;
 }
