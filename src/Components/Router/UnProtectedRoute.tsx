@@ -6,7 +6,7 @@ import { AppRoutes } from './AppRoutes';
 const UnProtectedRoute = () => {
     const ctx = useContext(DataContext);
   if (ctx.isAuthorized){
-      return <Navigate to={AppRoutes.readme} replace/>
+      return <Navigate to={AppRoutes.usersPage} replace/>
   }
   return <Outlet/>
 }
