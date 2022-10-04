@@ -22,6 +22,7 @@ const ProgressPage = () => {
 
   const [focusCommit, setFocusCommit] = useState<Commit>({
     id: "",
+    
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

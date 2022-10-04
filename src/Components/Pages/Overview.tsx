@@ -18,8 +18,8 @@ const Overview = () => {
     const dateList: string[] = [""];
 
     const dates = commitList.reverse().map((commit) => {
-        if (!(dateList.includes(commit.committed_date.split('T')[0])) && (dateList.length != 0)) {
-            dateList.push(commit.committed_date.split('T')[0]);
+        if (!(dateList.includes(commit.committed_date!.split('T')[0])) && (dateList.length != 0)) {
+            dateList.push(commit.committed_date!.split('T')[0]);
         }
     })
 
@@ -28,7 +28,7 @@ const Overview = () => {
     const dateCount = dateList.map((date) => {
         let count = 0;
         commitList.reverse().forEach((commit) => {
-            if (commit.committed_date.split('T')[0] === date) {
+            if (commit.committed_date?.split('T')[0] === date) {
                 count++;
             }
         })
