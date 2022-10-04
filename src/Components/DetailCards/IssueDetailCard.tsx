@@ -18,7 +18,7 @@ class IssueDetailCard extends React.Component<IssueDetailCardProps>  {
     }
     render() {
         return (
-            <div className='w-full rounded-md bg-white flex flex-col p-4 mt-16'>
+            <div className='w-full rounded-md bg-white flex flex-col p-4'>
                 {(this.props.focusIssue.id === 0) ?
                     <div className='flex justify-center items-center'>
                         Ingen issue valgt

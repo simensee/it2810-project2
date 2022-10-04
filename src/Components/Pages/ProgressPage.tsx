@@ -7,7 +7,7 @@ import CommitList from '../ProgressPageComponents/CommitList';
 import MergeRQList from '../ProgressPageComponents/MergeRQList';
 import DropDown from '../Components/Dropdown';
 import TabButton from '../ProgressPageComponents/TabButton';
-import Overview from './Overview';
+import Overview from '../ProgressPageComponents/Overview';
 
 function dateIsValid(date: Date) {
   return !Number.isNaN(new Date(date).getTime());
@@ -55,7 +55,7 @@ const ProgressPage = () => {
     }
   };
 
-  const userSelection = (user: User): void => {    
+  const userSelection = (user: User): void => {
     setUsername(user.username ?? '');
     sessionStorage.setItem("user", user.username ?? '');
   };
@@ -98,8 +98,8 @@ const ProgressPage = () => {
   }
 
   return (
-    <div className="w-full h-full flex flex-col gap-4">
-      <div className="flex flex-row w-full items-center justify-between px-2 py-2 bg-white rounded-md">
+    <div className="w-full h-full flex flex-col gap-2 p-2 lg:flex lg:flex-col lg:gap-4">
+      <div className="flex flex-col p-2 gap-1 lg:flex lg:flex-row w-full lg:items-center lg:justify-between lg:px-2 lg:py-2 bg-white rounded-md">
         <div className='flex flex-row gap-3 pl-2'>
           <TabButton
             label='Overview'
@@ -115,28 +115,30 @@ const ProgressPage = () => {
             handleCLick={(l) => handleOptionSelect(l)} />
         </div>
         <form
-          className='flex'
+          className='flex flex-row justify-between pr-5 '
           onSubmit={(e) => e.preventDefault()}>
-          <button
-            className={'relative px-7 rounded-md text-white text-sm bg-blue-700 cursor-pointer hover:bg-blue-800 ${showDropDown ? "active" : undefined}'}
-            onClick={(): void => toggleDropDown()}
-            onBlur={(e: React.FocusEvent<HTMLButtonElement>): void =>
-              dismissHandler(e)
-            }
-          >
-            <div>
-              {(username !== '') ? username : "Select ..."}
-            </div>
-            {showDropDown && (
-              <DropDown
-                users={ctx.usersData}
-                showDropDown={false}
-                toggleDropDown={(): void => toggleDropDown()}
-                userSelection={userSelection}
-              />
-            )}
-          </button>
-          <div className='flex flex-row gap-2 px-2'>
+          <div className='order-last flex items-center'>
+            <button
+              className={'relative px-7 py-2 rounded-md text-white text-sm bg-blue-700 cursor-pointer hover:bg-blue-800 ${showDropDown ? "active" : undefined}'}
+              onClick={(): void => toggleDropDown()}
+              onBlur={(e: React.FocusEvent<HTMLButtonElement>): void =>
+                dismissHandler(e)
+              }
+            >
+              <div>
+                {(username !== '') ? username : "Select ..."}
+              </div>
+              {showDropDown && (
+                <DropDown
+                  users={ctx.usersData}
+                  showDropDown={false}
+                  toggleDropDown={(): void => toggleDropDown()}
+                  userSelection={userSelection}
+                />
+              )}
+            </button>
+          </div>
+          <div className='lg:flex lg:flex-row lg:gap-2 lg:px-2'>
             <span className='flex items-center'>Fra: </span>
             <DatePicker
               className='rounded-md'

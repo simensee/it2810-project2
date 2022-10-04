@@ -11,7 +11,7 @@ const NavButton = ({
   children,
 }: NavButtonProps) => {
   return (
-    <Link to={route} className='flex items-center space-x-6 px-4 py-2 rounded-lg text-gray-100 hover:bg-gray-100 hover:text-gray-900'>
+    <Link to={route} className='flex items-center sm:space-x-6 sm:px-4 sm:py-2 rounded-lg text-gray-100 hover:bg-gray-100 hover:text-gray-900'>
       {children}
     </Link>
   )
