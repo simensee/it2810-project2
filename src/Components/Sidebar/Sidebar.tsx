@@ -16,19 +16,9 @@ const Sidebar = () => {
       <aside className='md:w-64 max-h-screen'>
         <div className='w-screen h-20 p-2 sm:h-full sm:w-64 fixed left-0 top-0 bg-nav-bg sm:py-10 sm:px-5'>
           <div className='sm:m-4 sm:text-5xl text-gray-100'>
-            <h1>Nettside</h1>
+            <h1>My GitLab</h1>
           </div>
           <ul className='flex space-x-1 sm:space-y-2 sm:flex sm:flex-col'>
-            <li >
-              <NavButton
-                route={AppRoutes.readme}
-              >
-                <div className='hidden mb:visible'>
-                  <ArticleIcon />
-                </div>
-                <span>Readme</span>
-              </NavButton>
-            </li>
             <li>
               <NavButton
                 route={AppRoutes.usersPage}
@@ -43,16 +33,6 @@ const Sidebar = () => {
               >
                 {/* <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg> */}
                 <span className="flex-1 md:ml-3 whitespace-nowrap">Progress</span>
-              </NavButton>
-            </li>
-            <li>
-              <NavButton
-                route={AppRoutes.branchesPage}
-              >
-                <div className='hidden mb:visible'>
-                <AccountTreeIcon />
-                </div>
-                <span className="flex-1 md:ml-3 whitespace-nowrap">Branches</span>
               </NavButton>
             </li>
             <li>

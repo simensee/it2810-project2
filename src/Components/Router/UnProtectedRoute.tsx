@@ -6,7 +6,7 @@ import { AppRoutes } from './AppRoutes';
 const UnProtectedRoute = () => {
   const isAuth = localStorage.getItem('isAuth') === 'true';
   if (isAuth){
-      return <Navigate to={AppRoutes.readme} replace/>
+      return <Navigate to={AppRoutes.usersPage} replace/>
   }
   return <Outlet/>
 }

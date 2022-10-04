@@ -7,7 +7,7 @@ module.exports = {
     extend: {
       colors: {
         'elem-bg': '#efd0ca',
-        'nav-bg': '#214e34'
+        'nav-bg': '#64748b'
       }
     },
   },

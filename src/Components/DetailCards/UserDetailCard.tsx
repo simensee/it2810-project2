@@ -90,7 +90,7 @@ const UserDetailCard = ({ focusUser }: UserDetailCardProps) => {
     const totalMerges: number = GetUserTotalMergeRequestsOpened(focusUser);
     GetUsersLastThreeCommits(focusUser, ctx.commitData);
         return (
-            <div className='flex items-center flex-col gap-4 py-10 bg-elem-bg rounded-md'>
+            <div className='flex items-center flex-col gap-4 py-10 bg-slate-400 rounded-md'>
                 {(focusUser.name === 'Empty') ?
                     <div className='flex justify-center items-center'>Ingen bruker valgt</div>
                     :
@@ -110,22 +110,15 @@ const UserDetailCard = ({ focusUser }: UserDetailCardProps) => {
                             <span>Total issues assigned: {totalIssues}</span>
                             <p>---------------------------------------------</p>
                             <span>Total merge requests closed: {totalMerges}</span>
-                            <div>
-                                    
-                                    {userCommits.map((c, i) => {
-                                        return (<div key={i} className='flex flex-col gap-4'>
-                                            <span>{c.title}</span>
-                                            <span>{c.author_name}</span>
-                                            
-                                    </div>
-                                    )})}
-                        
-                                    
-
+                            <p className='font-bold p-2'>Latest commits:</p>
+                            <div className='flex flex-col gap-4 p-4 bg-slate-700 w-80'>
+                                {userCommits.map((c, i) => {
+                                    return (<div key={i} className='flex flex-col text-white'>
+                                        {/* <span className='italic'>{c.author_name}</span> */}
+                                        <span>{c.title}</span>
+                                </div>
+                                )})}
                             </div>
-                            
-                        
-
                         </div>
                     </>
                 }

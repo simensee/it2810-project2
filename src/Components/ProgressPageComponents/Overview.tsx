@@ -12,14 +12,15 @@ const Overview = () => {
     const ctx = useContext(DataContext);
     const commitList: Commit[] = ctx.commitData;
     const userList: User[] = ctx.usersData;
-    const userNames: string[] = [];
+    const usersForGraph: User[] = [];
     // console.log('commitList length', commitList.length);
 
     const dateList: string[] = [""];
+    // console.log(commitList[-10]);
 
-    const dates = commitList.reverse().map((commit) => {
+    const dates = commitList.map((commit) => {
         if (!(dateList.includes(commit.committed_date!.split('T')[0])) && (dateList.length != 0)) {
-            dateList.push(commit.committed_date!.split('T')[0]);
+            dateList.unshift(commit.committed_date!.split('T')[0]);
         }
     })
 
@@ -27,7 +28,7 @@ const Overview = () => {
 
     const dateCount = dateList.map((date) => {
         let count = 0;
-        commitList.reverse().forEach((commit) => {
+        commitList.forEach((commit) => {
             if (commit.committed_date?.split('T')[0] === date) {
                 count++;
             }
@@ -35,14 +36,16 @@ const Overview = () => {
         return count;
     })
 
+    // console.log('dateCount', dateCount);
 
-    const usersWithCommits = userList.map((user) => {
+    userList.map((user) => {
         if (ctx.getUserTotalCommits(user) > 0) {
-            userNames.push(user.name);
+            usersForGraph.push(user);
         }
     })
 
     const backgroundColor = [
+        'rgba(153, 102, 255, 0.2)',
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
         'rgba(255, 206, 86, 0.2)',
@@ -73,7 +76,6 @@ const Overview = () => {
             },
             y: {
                 beginAtZero: true,
-                max: 35,
                 color: 'black',
                 ticks: {
                     color: 'black',
@@ -91,6 +93,7 @@ const Overview = () => {
     };
 
     var options2 = {
+        responsive: true,
         plugins: {
             legend: {
                 labels: {
@@ -99,32 +102,23 @@ const Overview = () => {
             }
         }
     };
-    console.log(commitData);
+    // console.log(commitData);
 
 
     const userData = {
-        labels: userNames,
+        labels: usersForGraph.map((user) => user.name),
         datasets: [{
             label: 'Commits',
-            data: userList.map((user) => ctx.getUserTotalCommits(user)),
+            data: usersForGraph.map((user) => ctx.getUserTotalCommits(user)),
             borderColor: 'rgb(53, 162, 235)',
-            backgroundColor: userNames.map((name) => backgroundColor[userNames.indexOf(name)]),
+            backgroundColor: usersForGraph.map((user) => backgroundColor[usersForGraph.indexOf(user)]),
             fill: true,
         }],
         borderColor: 'black',
         borderwidth: 1,
-        options: {
-            plugins: {
-                legend: {
-                    labels: {
-                        color: 'black',
-                    }
-                }
-            }
-        }
     };
 
-    ctx.usersData.map((user) => {console.log(user.name ,ctx.getUserTotalCommits(user))});
+    // ctx.usersData.map((user) => {console.log(user.name ,ctx.getUserTotalCommits(user))});
 
 
     return (
