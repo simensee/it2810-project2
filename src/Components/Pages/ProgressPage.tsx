@@ -1,49 +1,43 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { DataContext } from '../../Resources/DataContext';
 import { Commit, MergeRequest, User } from '../../Resources/ResponseTypes';
-import MergeDetailCard from '../DetailCards/MergeDetailCard';
 import DatePicker from 'react-datepicker';
-import { DropDownList } from "@progress/kendo-react-dropdowns";
-import Dropdown from '../Components/Dropdown';
 import "react-datepicker/dist/react-datepicker.css";
 import CommitList from '../ProgressPageComponents/CommitList';
 import MergeRQList from '../ProgressPageComponents/MergeRQList';
-
-
+import DropDown from '../Components/Dropdown';
+import TabButton from '../ProgressPageComponents/TabButton';
 
 function dateIsValid(date: Date) {
   return !Number.isNaN(new Date(date).getTime());
 }
 
 const ProgressPage = () => {
-  const [focusMergeRequest, setFocusMergeRequest] = useState<MergeRequest>({
-    id: 0,
-  });
 
-  const [focusCommit, setFocusCommit] = useState<Commit>({
-    id: "",
-    
-  });
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    localStorage.setItem("startDate", startDate);
+  const [startDate, setStartDate] = useState(sessionStorage.getItem('startDate') ?? (new Date()).toISOString().split('T')[0]);
+  const [endDate, setEndDate] = useState(sessionStorage.getItem('endDate') ?? (new Date()).toISOString().split('T')[0]);
+  const [username, setUsername] = useState(sessionStorage.getItem('user') ?? "");
+  const [displayOption, setdisplayOption] = useState(sessionStorage.getItem('displayOption') ?? 'Overview');
+
+  useEffect(() => {
+    updateResult();
+  }, [username]);
+
+  const updateParams = async () => {
+    sessionStorage.setItem("startDate", startDate);
     setStartDate(startDate);
-    localStorage.setItem("endDate", endDate);
+    sessionStorage.setItem("endDate", endDate);
     setEndDate(endDate);
-    localStorage.setItem("user", username);
-    setUsername(username);
   }
 
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [username, setUsername] = useState("");
-  const [displayCommits, setDisplayCommits] = useState(false);
+  const handleOptionSelect = (option: string) => {
+    setdisplayOption(option);
+    sessionStorage.setItem('displayOption', option);
+  }
 
   const ctx = useContext(DataContext);
-  const mergeList: MergeRequest[] = ctx.mergeData;
-  const commitList: Commit[] = ctx.commitData;
-  const userList: User[] = ctx.usersData;
 
   const [renderedMergeList, setRenderedMergeList] = useState<MergeRequest[]>([]);
   const [renderedCommitList, setRenderedCommitList] = useState<Commit[]>([]);
@@ -60,32 +54,24 @@ const ProgressPage = () => {
     }
   };
 
-  const userSelection = (user: User): void => {
-    setUsername(user.username ? user.username : "");
+  const userSelection = (user: User): void => {    
+    setUsername(user.username ?? '');
+    sessionStorage.setItem("user", user.username ?? '');
   };
 
-  useEffect(() => {
-    const startDateStr: string = localStorage.getItem('startDate') ?? (new Date()).toISOString().split('T')[0];
-    setStartDate(startDateStr);
-    const endDateStr: string = localStorage.getItem('endDate') ?? (new Date()).toISOString().split('T')[0];
-    setEndDate(endDateStr);
-    const name: string = localStorage.getItem('user') ?? "";
-    setUsername(name);
-    updateResult();
-  }, [username]);
-
-  const updateResult = () => {
-    const filteredMergeList: MergeRequest[] = mergeList.filter((m) => {
+  const updateResult = async () => {
+    await updateParams();
+    const filteredMergeList: MergeRequest[] = ctx.mergeData.filter((m) => {
       if (
-        m.created_at!.split("T")[0] >= startDate && 
-        m.created_at!.split('T')[0] <= endDate && 
+        m.created_at!.split("T")[0] >= startDate &&
+        m.created_at!.split('T')[0] <= endDate &&
         m.author?.username == username) {
         return m;
       }
     });
     setRenderedMergeList(filteredMergeList);
 
-    const filteredCommits: Commit[] = commitList.filter((c) => {
+    const filteredCommits: Commit[] = ctx.commitData.filter((c) => {
       if (
         c.committed_date!.split("T")[0] >= startDate.split("T")[0] &&
         c.committed_date!.split("T")[0] <= endDate.split("T")[0] &&
@@ -97,52 +83,75 @@ const ProgressPage = () => {
     setRenderedCommitList(filteredCommits);
   };
 
+  const displayChoosen = (option: string): JSX.Element => {
+    switch (option) {
+      case 'Overview':
+        return <div className='w-full'>Overview!</div>;
+      case 'Merge requests':
+        return <MergeRQList mergeRequestList={renderedMergeList} />;
+      case 'Commits':
+        return <CommitList commitList={renderedCommitList} />;
+      default:
+        return <></>
+    }
+  }
+
   return (
     <div className="w-full h-full flex flex-col gap-4">
-      <div className="flex flex-row w-full items-center justify-between px-4 bg-white rounded-md">
-        <button onClick={() => setDisplayCommits(!displayCommits)}>
-          toggle
-        </button>
+      <div className="flex flex-row w-full items-center justify-between px-2 py-2 bg-white rounded-md">
+        <div className='flex flex-row gap-3 pl-2'>
+          <TabButton
+            label='Overview'
+            selected={displayOption === 'Overview'}
+            handleCLick={(l) => handleOptionSelect(l)} />
+          <TabButton
+            label='Merge requests'
+            selected={displayOption === 'Merge requests'}
+            handleCLick={(l) => handleOptionSelect(l)} />
+          <TabButton
+            label='Commits'
+            selected={displayOption === 'Commits'}
+            handleCLick={(l) => handleOptionSelect(l)} />
+        </div>
         <form
           className='flex'
-          onSubmit={handleSubmit}>
-          <div className='flex'>
-            <DatePicker
-              className='right-auto top-11 transform-none !important'
-              selected={dateIsValid(new Date(startDate)) ? new Date(startDate) : new Date()}
-              onChange={(date: Date) => setStartDate(date.toISOString().split('T')[0])}
-              onCalendarClose={() => updateResult()} />
-            <DatePicker
-              selected={dateIsValid(new Date(endDate)) ? new Date(endDate) : new Date()}
-              onChange={(date: Date) => setEndDate(date.toISOString().split('T')[0])}
-              onCalendarClose={() => updateResult()} />
-          </div>
+          onSubmit={(e) => e.preventDefault()}>
           <button
-            className={'relative font-normal text-left whitespace-no-wrap align-middle select-none text-sm leading-normal rounded cursor-pointer ${showDropDown ? "active" : undefined}'}
+            className={'relative px-7 rounded-md text-white text-sm bg-blue-700 cursor-pointer hover:bg-blue-800 ${showDropDown ? "active" : undefined}'}
             onClick={(): void => toggleDropDown()}
             onBlur={(e: React.FocusEvent<HTMLButtonElement>): void =>
               dismissHandler(e)
             }
           >
-            <div>{username ? "Select: " + username : "Select ..."} </div>
+            <div>
+              {(username !== '') ? username : "Select ..."}
+            </div>
             {showDropDown && (
-              <Dropdown
-                users={userList}
+              <DropDown
+                users={ctx.usersData}
                 showDropDown={false}
                 toggleDropDown={(): void => toggleDropDown()}
                 userSelection={userSelection}
               />
             )}
           </button>
+          <div className='flex flex-row gap-2 px-2'>
+            <span className='flex items-center'>Fra: </span>
+            <DatePicker
+              className='rounded-md'
+              selected={dateIsValid(new Date(startDate)) ? new Date(startDate) : new Date()}
+              onChange={(date: Date) => setStartDate(date.toISOString().split('T')[0])}
+              onCalendarClose={() => updateResult()} />
+            <span className='flex items-center'>Til: </span>
+            <DatePicker
+              className='rounded-md'
+              selected={dateIsValid(new Date(endDate)) ? new Date(endDate) : new Date()}
+              onChange={(date: Date) => setEndDate(date.toISOString().split('T')[0])}
+              onCalendarClose={() => updateResult()} />
+          </div>
         </form>
       </div>
-      <div className='w-full h-full bg-white rounded-md overflow-auto'>
-        {(displayCommits) ? 
-        <CommitList commitList={renderedCommitList}/> 
-        :
-        <MergeRQList mergeRequestList={renderedMergeList}/>
-      }
-      </div>
+      {displayChoosen(displayOption)}
     </div>
   )
 }
