@@ -11,8 +11,8 @@ We have chosen to use Tailwind because it is easier and less complex than using 
 ### Use of NPM
 We chose npm as our JS package manager instead of yarn even though yarn is considered to be faster and more secure then NPM. The difference is that while Yarn installs dependency packages in parallel, NPM installs them sequentially. The choice to choose NPM is also based on the fact that most team members have used it previously.
 
-### Use of Charts JS
-We Chart js, which is a free JavaScript HTML5 library, to easily create a HTML-based chart. This is used for visualization of commits, dates and users. 
+### Use of Charts.js
+We used Chart.js, which is a free JavaScript HTML5 library, to easily create a HTML-based chart. This is used for visualization of commits, dates and users. 
 
 ### Components
 * *Components* contains components we see fit to reuse
@@ -41,6 +41,49 @@ We Chart js, which is a free JavaScript HTML5 library, to easily create a HTML-b
 * In **Resources** lies context provider and interfaces
     * **DataContext** contains RESTAPI and produces global variables
     * **ResponseTypes** contains interfaces (global variables) with the property names/responses from RESTAPI. These are the property names the interface object can have.
+
+## Technical requirements
+### Ajax
+AJAX comes with React and allows you to request and receive data from a server after an application or web page is loaded. What makes AJAX good for interactive user interfaces is that the various components are loaded independently of each other, and that you can thus update one component in the application, without the remaining components being affected.
+
+We have chosen to use Fetch to handle AJAX calls to GitLab. The choice was between Fetch and the alternative Axios. Fetch was chosen here as it is well documented and therefore easy to get started with. The alternative Axios also had good documentation, especially linked to React, but Fetch was still chosen as it will possibly become the standard, and was good to get started with.
+
+### HTML Web storage
+We use Session storage to filter the render of data we fetch from the Gitlab API like issues, users, commits, merge and merge requests on the progress page. We use local storage to store the filtering on time period and selected user. 
+
+### Responsive design 
+Viewport
+Media-queries
+Bilder som skalerer
+Flytende/fleksibellayout
+
+### Use of Git
+The group has used GitLab and the kanban board for controlling which issues to work on and which issues other team members are working on. Each issue has been created as a branch. Also, for each commit we have used “fix” or “feat” in the beginning of each commit to see if it is a feature or a bug/something to be fixed. 
+
+## To run the project 
+## Dependencies
+We are using the following dependencies
+* NPM
+* Tailwind
+* Chart
+
+### Tailwind
+We have chosen to use Tailwind because it is easier and less complex then using css. You can write the styling directly in the component and therefore have easier access.
+
+### NPM
+We chose npm as our JS package manager because it is popular and have a lot of resources. 
+
+## API
+The data we are fetching using HTTP-GET requests is:
+* Commits
+* Branches
+* Users
+
+## Testing
+We test our project with Jest-test, some of which are snapshot tests. The snapshot test will make sure the data from the API matches expected data. The component test checks if the new components render correctly. 
+
+
+
 
  
 
