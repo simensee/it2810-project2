@@ -17,6 +17,8 @@ The project is based on Node with use of Node Package Manager (NPM) and is progr
 
 Under “Structure” it is written more detailed about the components and files in the project.
 
+### Use of Tailwind
+We have chosen to use Tailwind because it is easier and less complex than using css. You can write the styling directly in the component and therefore have more control, and the rest of the team members can easily access and understand the styling.
 
 ```
 cd existing_repo
