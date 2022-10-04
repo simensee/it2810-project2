@@ -30,8 +30,8 @@ const UsersPage = () => {
           return <UserCard key={u.id} user={u} handleClick={(u) => handleUserClick(u)} isSelected={(u.id === focusUser.id)}></UserCard>
         })}
       </div>
-      <div className='w-full'>
-        <UserDetailCard 
+      <div data-testid="testUserDetailCard" className='w-full'>
+        <UserDetailCard
         focusUser={focusUser}
         />
       </div>

@@ -1,15 +1,24 @@
-
-import React, { useContext } from "react";
-import App from "../App";
 import renderer from "react-test-renderer";
-import {DataContext} from "../Resources/DataContext";
-import { MergeRequest, User } from "../Resources/ResponseTypes";
-import MergeDetailCard from "../Components/DetailCards/MergeDetailCard";
+import { Issue} from "../Resources/ResponseTypes";
+import IssueDetailCard from "../Components/DetailCards/IssueDetailCard";
 
-const mockData = {
-    data: {  
-        id: 78173,
-        title: "Fix bugs usercard",
-        
-    }
-}
+
+
+
+ describe('Issue component', () => {
+    it('it works', async () => {
+      let issue: Issue = ({
+          id: 78173,
+          title: "Fix bugs usercard"
+      });
+ 
+       
+     const tree : any = renderer.create(<IssueDetailCard focusIssue={issue} />);
+     
+      
+     expect(tree.toJSON()).toMatchSnapshot()
+     
+  });
+ });
+ 
+ 
