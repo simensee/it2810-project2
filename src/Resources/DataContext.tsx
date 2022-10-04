@@ -9,8 +9,6 @@ interface DataContextProps {
     mergeData: MergeRequest[],
     issueData: Issue[],
     labelColors: LabelColor[],
-    isAuthorized: boolean,
-    setIsAuthorized: Function,
     setCredentials: Function,
     fetchUsers: Function,
     fetchCommits: Function,
@@ -19,6 +17,8 @@ interface DataContextProps {
     fetchIssues: Function,
     fetchLabelColors: Function,
     getUserTotalCommits: Function,
+    setup: Function,
+    clearParams: Function,
 }
 
 export const DataContext = createContext<DataContextProps>({
@@ -28,8 +28,6 @@ export const DataContext = createContext<DataContextProps>({
     mergeData: [],
     issueData: [],
     labelColors: [],
-    isAuthorized: false,
-    setIsAuthorized: () => null,
     setCredentials: () => null,
     fetchUsers: () => null,
     fetchCommits: () => null,
@@ -38,6 +36,8 @@ export const DataContext = createContext<DataContextProps>({
     fetchIssues: () => null,
     fetchLabelColors: () => Promise<LabelColor[]>,
     getUserTotalCommits: (u: User) => Number,
+    setup: () => null,
+    clearParams: () => null,
 });
 
 export interface LayoutProps {
@@ -45,11 +45,10 @@ export interface LayoutProps {
 }
 
 export const DataContextProvider = (props: LayoutProps) => {
-    const baseUrl: string = 'https://gitlab.stud.idi.ntnu.no/api/v4/projects/17475/';
-    const APIToken: string = 'glpat-cygbLETJKv1wXaNyMtXS';
+    let baseUrl: string = 'https://gitlab.stud.idi.ntnu.no/api/v4/projects/';
 
-    let repoId: string = '';
-    let ApiToken: string = '';
+    let APIToken: string[] = [];
+    let repoId: string[] = [];
 
     let usersData: User[] = [];
     let commitData: Commit[] = [];
@@ -58,26 +57,30 @@ export const DataContextProvider = (props: LayoutProps) => {
     let issueData: Issue[] = [];
     let labelColors: LabelColor[] = [];
 
-    // Login is set to true for easier development
-    const [isAuthorized, setAuthorized] = useState(true);
 
-    if (sessionStorage.getItem('isAuth') === 'true' && !isAuthorized) {
-        setAuthorized(true);
+    const setup = async () => {
+        if (localStorage.getItem('isAuth') === 'true') {
+            if (APIToken.length === 0) APIToken.push(localStorage.getItem('repoToken')!);
+            if (repoId.length === 0) repoId.push(localStorage.getItem('repoId')!);
+        }
     }
 
-    const setCredentials = (id: string, token: string) => {
-        repoId = id;
-        ApiToken = token;
+    const setCredentials = async (id: string, token: string) => {
+        APIToken.push(token);
+        repoId.push(id);
+        console.log(APIToken);
     }
 
-    const setIsAuthorized = async (val: boolean) => {
-        setAuthorized(val);
-        sessionStorage.setItem('isAuth', val ? 'true' : 'false');
+    const clearParams = () => {
+        localStorage.setItem('repoId', '');
+        localStorage.setItem('repoToken', '');
+        APIToken.pop();
+        repoId.pop();
     }
 
     let currentPage = 0;
     const fetchUsers = async () => {
-        const usersUrl = baseUrl.concat('users');
+        const usersUrl = baseUrl.concat((repoId[0] ?? '') + '/users');
         let fetchUsersUrl: URL = new URL(usersUrl);
 
         await fetch(fetchUsersUrl, {
@@ -93,7 +96,7 @@ export const DataContextProvider = (props: LayoutProps) => {
     }
 
     const fetchCommits = async () => {
-        const commitUrl = baseUrl.concat('repository/commits');
+        const commitUrl = baseUrl.concat((repoId[0] ?? '') + '/repository/commits');
         let fetchCommitUrl: URL = new URL(commitUrl + "?pagination=keyset");
         let page: number = 1;
         let finished: boolean = false;
@@ -114,7 +117,7 @@ export const DataContextProvider = (props: LayoutProps) => {
     }
 
     const fetchBranches = async () => {
-        const branchUrl = baseUrl.concat('repository/branches')
+        const branchUrl = baseUrl.concat((repoId[0] ?? '') + '/repository/branches')
         let fetchBranchUrl: URL = new URL(branchUrl)
         await fetch(fetchBranchUrl, {
             method: 'GET',
@@ -128,8 +131,9 @@ export const DataContextProvider = (props: LayoutProps) => {
         });
 
     }
+    
     const fetchMergeRequests = async () => {
-        const mergeUrl = baseUrl.concat('merge_requests');
+        const mergeUrl = baseUrl.concat((repoId[0] ?? '') + '/merge_requests');
         let fetchMergeUrl: URL = new URL(mergeUrl + "?pagination=keyset");
         let page: number = 1;
         let finished: boolean = false;
@@ -150,7 +154,7 @@ export const DataContextProvider = (props: LayoutProps) => {
     }
 
     const fetchMergeRequestsFiltered = async (start_time: string, end_time: string, username: string) => {
-        const mergeUrl = baseUrl.concat('merge_requests');
+        const mergeUrl = baseUrl.concat((repoId[0] ?? '') + '/merge_requests');
         let fetchMergeUrl: URL = new URL(mergeUrl + "?pagination=keyset&since=" + start_time + "&until" + end_time + "&author_username=" + username);
         let page: number = 1;
         let finished: boolean = false;
@@ -170,9 +174,8 @@ export const DataContextProvider = (props: LayoutProps) => {
         }
     }
 
-
     const fetchIssues = async () => {
-        const issueUrl = baseUrl.concat('issues');
+        const issueUrl = baseUrl.concat((repoId[0] ?? '') + '/issues');
         let fetchIssueUrl: URL = new URL(issueUrl + "?pagination=keyset");
         let page: number = 1;
         let finished: boolean = false;
@@ -192,9 +195,8 @@ export const DataContextProvider = (props: LayoutProps) => {
         }
     }
 
-
     const fetchIssuesFiltered = async (start_time: string, end_time: string, username: string) => {
-        const issueUrl = baseUrl.concat('issues');
+        const issueUrl = baseUrl.concat((repoId[0] ?? '') + '/issues');
         let fetchIssueUrl: URL = new URL(issueUrl + "?pagination=keyset&since=" + start_time + "&until" + end_time + "&assignees_username=" + username);
         let page: number = 1;
         let finished: boolean = false;
@@ -210,10 +212,8 @@ export const DataContextProvider = (props: LayoutProps) => {
         }
     }
 
-
-
     const fetchLabelColors = async () => {
-        const labelUrl = baseUrl.concat('labels');
+        const labelUrl = baseUrl.concat((repoId[0] ?? '') + '/labels');
         let fetchLabelUrl: URL = new URL(labelUrl);
         await fetch(fetchLabelUrl, {
             method: 'GET',
@@ -245,8 +245,6 @@ export const DataContextProvider = (props: LayoutProps) => {
         mergeData,
         issueData,
         labelColors,
-        isAuthorized,
-        setIsAuthorized,
         setCredentials,
         fetchUsers,
         fetchCommits,
@@ -255,6 +253,8 @@ export const DataContextProvider = (props: LayoutProps) => {
         fetchIssues,
         fetchLabelColors,
         getUserTotalCommits,
+        setup,
+        clearParams,
     };
 
     return <DataContext.Provider value={value}>{props.children}</DataContext.Provider>
