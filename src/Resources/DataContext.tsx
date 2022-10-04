@@ -104,7 +104,6 @@ export const DataContextProvider = (props: LayoutProps) => {
                 })
             }).then(res => res.json()).then((res) => {
                 if (res.length < 20) finished = true;
-                console.log(res.length);
                 const commitResponse: Commit[] = res;
                 commitData.push(...commitResponse);
                 page++;
@@ -115,8 +114,6 @@ export const DataContextProvider = (props: LayoutProps) => {
     const fetchBranches = async () => {
         const branchUrl = baseUrl.concat('repository/branches')
         let fetchBranchUrl: URL = new URL(branchUrl)
-        console.log(fetchBranchUrl)
-
         await fetch(fetchBranchUrl, {
             method: 'GET',
             headers: new Headers({
@@ -125,7 +122,6 @@ export const DataContextProvider = (props: LayoutProps) => {
             })
         }).then(res => res.json()).then((res) => {
             const branchResponse: Branch[] = res;
-            console.log("hei");
             branchesData.push(...branchResponse);
         });
 
@@ -144,7 +140,6 @@ export const DataContextProvider = (props: LayoutProps) => {
                 })
             }).then(res => res.json()).then((res) => {
                 if (res.length < 20) finished = true;
-                console.log(res.length);
                 const mergeResponse: MergeRequest[] = res;
                 mergeData.push(...mergeResponse);
                 page++;
@@ -166,7 +161,6 @@ export const DataContextProvider = (props: LayoutProps) => {
                 })
             }).then(res => res.json()).then((res) => {
                 if (res.length < 20) finished = true;
-                console.log(res.length);
                 const mergeResponse: MergeRequest[] = res;
                 mergeData.push(...mergeResponse);
                 page++;
@@ -189,7 +183,6 @@ export const DataContextProvider = (props: LayoutProps) => {
                 })
             }).then(res => res.json()).then((res) => {
                 if (res.length < 20) finished = true;
-                console.log(res.length);
                 const issueResponse: Issue[] = res;
                 issueData.push(...issueResponse);
                 page++;
@@ -208,7 +201,6 @@ export const DataContextProvider = (props: LayoutProps) => {
 
             }).then(res => res.json()).then((res) => {
                 if (res.length < 20) finished = true;
-                console.log(res.length);
                 const issueResponse: Issue[] = res;
                 issueData.push(...issueResponse);
                 page++;
