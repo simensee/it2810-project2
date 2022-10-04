@@ -1,22 +1,24 @@
 # Team 23 - Prosjekt 2
 
-## How to use this web application
-### Log in
-To log into this application you need to enter the ID of your repo, and an access token. 
 
-### Users
-Here you get a 
+## Getting started
 
-### Progress
+To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 
-### Issues
-On this page you will get an overview of all the issues in the repo, both opened and closed. If the repo uses the labels “Todo”, “Done” and “Doing” these will show in their respective columns. If the repo does not use these labels, the “Done”-column will still include all closed issues.
+Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
 
-
-## Add your files
+## Technology
 
 - [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
 - [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+
+
+The project is based on Node with use of Node Package Manager (NPM) and is programmed with React and JSX. Also the project is written with Typescript and styled with Tailwind. The project primarily contains functional components but has one class component which is IssueDetailCard. The context API is used and implemented in DataContext. 
+
+Under “Structure” it is written more detailed about the components and files in the project.
+
+### Use of Tailwind
+We have chosen to use Tailwind because it is easier and less complex than using css. You can write the styling directly in the component and therefore have more control, and the rest of the team members can easily access and understand the styling.
 
 ```
 cd existing_repo
@@ -25,7 +27,7 @@ git branch -M main
 git push -uf origin main
 ```
 
-## Integrate with your tools
+### Integrate with your tools
 
 - [ ] [Set up project integrations](https://gitlab.stud.idi.ntnu.no/it2810-h22/Team-23/team-23-prosjekt-2/-/settings/integrations)
 
