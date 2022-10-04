@@ -14,7 +14,7 @@ const IssueCard = ({ issue, handleOnClick, selected }: IssueCardProps) => {
     
     return (
         <div 
-        className='flex flex-col gap-2 bg-stone-200 hover:bg-stone-100 rounded-md py-3 px-3 justify-between hover:cursor-pointer'
+        className='flex flex-col gap-2 bg-slate-200 hover:bg-slate-100 rounded-md py-3 px-3 justify-between hover:cursor-pointer'
         onClick={() => handleOnClick(issue)}
         style={{backgroundColor: selected ? '#f5f5f4' : ''}}
         >

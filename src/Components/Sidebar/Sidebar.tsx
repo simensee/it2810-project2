@@ -15,7 +15,7 @@ const Sidebar = () => {
       <aside className='md:w-64 max-h-screen'>
         <div className='w-screen h-20 p-2 sm:h-full sm:w-64 fixed left-0 top-0 bg-nav-bg sm:py-10 sm:px-5'>
           <div className='sm:m-4 sm:text-5xl text-gray-100'>
-            <h1>Nettside</h1>
+            <h1>My GitLab</h1>
           </div>
           <ul className='flex space-x-1 sm:space-y-2 sm:flex sm:flex-col'>
             <li>
