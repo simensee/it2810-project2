@@ -13,7 +13,7 @@ const ProtectedRoute = () => {
             <nav>
                 <Sidebar />
             </nav>
-            <div className='ml-64 pl-4 pb-8 lg:pt-12 px-4 h-full'>
+            <div className='pt-20 h-full w-full mb-4 sm:pl-64 sm:pb-8 sm:px-4'>
                 <Outlet />
             </div>
             </>
