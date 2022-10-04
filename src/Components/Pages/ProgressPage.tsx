@@ -14,8 +14,6 @@ function dateIsValid(date: Date) {
 }
 
 const ProgressPage = () => {
-
-  const [isLoaded, setIsLoaded] = useState(false);
   const ctx = useContext(DataContext);
 
   const [startDate, setStartDate] = useState(sessionStorage.getItem('startDate') ?? (new Date()).toISOString().split('T')[0]);

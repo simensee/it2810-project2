@@ -5,10 +5,10 @@ import { AppRoutes } from './AppRoutes';
 
 const UnProtectedRoute = () => {
   const isAuth = localStorage.getItem('isAuth') === 'true';
-  if (isAuth){
-      return <Navigate to={AppRoutes.usersPage} replace/>
+  if (isAuth) {
+    return <Navigate to={AppRoutes.usersPage} replace />
   }
-  return <Outlet/>
+  return <Outlet />
 }
 
 export default UnProtectedRoute

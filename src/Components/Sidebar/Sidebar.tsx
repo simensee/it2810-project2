@@ -40,7 +40,7 @@ const Sidebar = () => {
                 route={AppRoutes.issuesPage}
               >
                 <div className='hidden mb:visible'>
-                <FormatListBulleted />
+                  <FormatListBulleted />
                 </div>
                 <span className="flex-1 md:ml-3 whitespace-nowrap">Issues</span>
               </NavButton>

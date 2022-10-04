@@ -46,7 +46,7 @@ const Overview = () => {
         'rgba(75, 192, 192, 0.2)',
         'rgba(153, 102, 255, 0.2)',
         'rgba(255, 159, 64, 0.2)',];
-    
+
     const commitData = {
         labels: dateList,
         datasets: [{
@@ -55,7 +55,7 @@ const Overview = () => {
             borderColor: 'rgb(53, 162, 235)',
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             fill: true,
-            
+
         }],
         borderColor: 'black',
         borderwidth: 1,
@@ -113,10 +113,10 @@ const Overview = () => {
     return (
         <div className='flex items-center justify-center flex-col'>
             <div className='w-11/12 mb-20'>
-                <Line data={commitData} options={options}/>
+                <Line data={commitData} options={options} />
             </div>
             <div className='w-4/12 mt-3 mb-20 text-black'>
-                <Pie data={userData} options={options2}/>
+                <Pie data={userData} options={options2} />
             </div>
         </div>
     )

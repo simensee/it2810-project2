@@ -10,9 +10,6 @@ type MergeDetailCardProps = {
 const MergeDetailCard = ({ focusMerge }: MergeDetailCardProps) => {
 
     const ctx = useContext(DataContext);
-    //const [userCommits, setUserCommits] = useState(0);
-
-   
 
     return (
         <div>

@@ -19,10 +19,10 @@ const UsersPage = () => {
   }
 
   useEffect(() => {
-    const prevUser: User = ctx.usersData.find(u => u.id?.toString() === sessionStorage.getItem('focusedUser')) ?? {name: 'Empty'};
+    const prevUser: User = ctx.usersData.find(u => u.id?.toString() === sessionStorage.getItem('focusedUser')) ?? { name: 'Empty' };
     setFocusUser(prevUser);
   }, []);
- 
+
   return (
     <div className='flex flex-col gap-2 w-full px-2 lg:grid lg:grid-cols-3 lg:gap-4'>
       <div className='w-full grid grid-cols-2 gap-2 lg:col-span-2 lg:grid lg:grid-cols-3 lg:gap-y-4'>
@@ -32,7 +32,7 @@ const UsersPage = () => {
       </div>
       <div data-testid="testUserDetailCard" className='w-full order-first lg:order-last'>
         <UserDetailCard
-        focusUser={focusUser}
+          focusUser={focusUser}
         />
       </div>
     </div>
