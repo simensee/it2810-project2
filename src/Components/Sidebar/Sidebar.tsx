@@ -36,16 +36,6 @@ const Sidebar = () => {
             </li>
             <li>
               <NavButton
-                route={AppRoutes.branchesPage}
-              >
-                <div className='hidden mb:visible'>
-                <AccountTreeIcon />
-                </div>
-                <span className="flex-1 md:ml-3 whitespace-nowrap">Branches</span>
-              </NavButton>
-            </li>
-            <li>
-              <NavButton
                 route={AppRoutes.issuesPage}
               >
                 <div className='hidden mb:visible'>

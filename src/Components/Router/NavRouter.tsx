@@ -4,7 +4,6 @@ import {
   Route,
   Routes
 } from "react-router-dom";
-import BranchesPage from '../Pages/BranchesPage';
 import LoginPage from '../Pages/LoginPage';
 import ProgressPage from '../Pages/ProgressPage';
 import UsersPage from '../Pages/UsersPage';
@@ -22,7 +21,6 @@ const NavRouter = () => {
       <Route element={<ProtectedRoute />}>
         <Route path={AppRoutes.usersPage} element={<UsersPage />} />
         <Route path={AppRoutes.progressPage} element={<ProgressPage />} />
-        <Route path={AppRoutes.branchesPage} element={<BranchesPage />} />
         <Route path={AppRoutes.issuesPage} element={<IssuesPage />} />
       </Route>
     </Routes>
