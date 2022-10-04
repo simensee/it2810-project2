@@ -7,15 +7,9 @@ import MergeDetailCard from "../Components/DetailCards/MergeDetailCard";
 
 
 
-const mockData = {
-   data: {  
-      id: "62388",
-   }
- }
-
  
 
- describe('App component', () => {
+ describe('Merge component', () => {
    it('it works', async () => {
      let mergeRequest : MergeRequest = ({
          id: 62388
@@ -26,12 +20,6 @@ const mockData = {
     
      
     expect(tree.toJSON()).toMatchSnapshot()
-    
-
-    
-    // Act
-
-    // Assert
     
  });
 });
