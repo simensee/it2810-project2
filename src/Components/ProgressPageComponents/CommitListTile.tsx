@@ -11,7 +11,7 @@ type CommitListTileProps = {
 const CommitListTile = ({ commit, handleClick, selected }: CommitListTileProps) => {
     return (
         <div
-            className='flex flex-col gap-1 bg-stone-200 hover:bg-stone-100 rounded-md py-1 px-2'
+            className='flex flex-col gap-1 bg-slate-200 hover:bg-slate-100 rounded-md py-1 px-2'
             onClick={() => handleClick(commit)}
             style={{backgroundColor: selected ? '#f5f5f4' : ''}}>
             <span className='w-3/5 text-clip overflow-hidden'>{commit.title}</span>

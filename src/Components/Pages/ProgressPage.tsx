@@ -16,10 +16,11 @@ function dateIsValid(date: Date) {
 const ProgressPage = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
+  const ctx = useContext(DataContext);
 
   const [startDate, setStartDate] = useState(sessionStorage.getItem('startDate') ?? (new Date()).toISOString().split('T')[0]);
   const [endDate, setEndDate] = useState(sessionStorage.getItem('endDate') ?? (new Date()).toISOString().split('T')[0]);
-  const [username, setUsername] = useState(sessionStorage.getItem('user') ?? "");
+  const [username, setUsername] = useState(sessionStorage.getItem('user') ?? ctx.usersData[0].username);
   const [displayOption, setdisplayOption] = useState(sessionStorage.getItem('displayOption') ?? 'Overview');
 
   useEffect(() => {
@@ -37,8 +38,6 @@ const ProgressPage = () => {
     setdisplayOption(option);
     sessionStorage.setItem('displayOption', option);
   }
-
-  const ctx = useContext(DataContext);
 
   const [renderedMergeList, setRenderedMergeList] = useState<MergeRequest[]>([]);
   const [renderedCommitList, setRenderedCommitList] = useState<Commit[]>([]);
@@ -126,7 +125,7 @@ const ProgressPage = () => {
               }
             >
               <div>
-                {(username !== '') ? username : "Select ..."}
+                {(username !== '') ? username : "velg bruker"}
               </div>
               {showDropDown && (
                 <DropDown
