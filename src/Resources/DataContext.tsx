@@ -68,7 +68,6 @@ export const DataContextProvider = (props: LayoutProps) => {
     const setCredentials = async (id: string, token: string) => {
         APIToken.push(token);
         repoId.push(id);
-        console.log(APIToken);
     }
 
     const clearParams = () => {

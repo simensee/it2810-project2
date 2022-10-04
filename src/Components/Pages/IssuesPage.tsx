@@ -21,7 +21,6 @@ const IssuePage = () => {
   const handleIssueClick = (issue: Issue) => {
     setFocusIssue(issue);
     sessionStorage.setItem('focusedIssue', issue.id!.toString());
-    console.log(issue.id);
   }
 
   useEffect(() => {

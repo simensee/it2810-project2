@@ -56,28 +56,16 @@ const UserDetailCard = ({ focusUser }: UserDetailCardProps) => {
         let i : number = 0;
         const commits: Commit[] = [];
         commitData.map((commit) => {
-            console.log(commit)
             if (i > 2) {
                 return;
             }
             if (commit.author_email?.split('@')[0] === user.username || commit.author_name === user.username) {
                 commits.push(commit);
-                console.log(i);
                 i++;
                 
             }
         })
-        /*for (let i = 0; i < commitData.length; i++) {
-            console.log(commitData[i]);
-            if (user.username === commitData[i].author_name) {
-                commits.push(ctx.commitData[i]);
-                
-            }
-        }*/
-        console.log("Commits");
-        console.log(commits);
         userCommits.push(...commits);
-        console.log(userCommits);
     }
 
 

@@ -24,7 +24,6 @@ const LoginPage = () => {
         const fetchUrl: URL = new URL(targetUrl);
 
         if (id === '' || token === '') {
-            console.log('Fyll inn begge felt');
             return;
         }
 

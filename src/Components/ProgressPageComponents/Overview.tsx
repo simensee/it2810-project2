@@ -13,18 +13,14 @@ const Overview = () => {
     const commitList: Commit[] = ctx.commitData;
     const userList: User[] = ctx.usersData;
     const usersForGraph: User[] = [];
-    // console.log('commitList length', commitList.length);
 
     const dateList: string[] = [""];
-    // console.log(commitList[-10]);
 
     const dates = commitList.map((commit) => {
         if (!(dateList.includes(commit.committed_date!.split('T')[0])) && (dateList.length != 0)) {
             dateList.unshift(commit.committed_date!.split('T')[0]);
         }
     })
-
-    // console.log('dateList', dateList);
 
     const dateCount = dateList.map((date) => {
         let count = 0;
@@ -35,8 +31,6 @@ const Overview = () => {
         })
         return count;
     })
-
-    // console.log('dateCount', dateCount);
 
     userList.map((user) => {
         if (ctx.getUserTotalCommits(user) > 0) {
@@ -102,8 +96,6 @@ const Overview = () => {
             }
         }
     };
-    // console.log(commitData);
-
 
     const userData = {
         labels: usersForGraph.map((user) => user.name),
@@ -117,9 +109,6 @@ const Overview = () => {
         borderColor: 'black',
         borderwidth: 1,
     };
-
-    // ctx.usersData.map((user) => {console.log(user.name ,ctx.getUserTotalCommits(user))});
-
 
     return (
         <div className='flex items-center justify-center flex-col'>
