@@ -90,7 +90,7 @@ const UserDetailCard = ({ focusUser }: UserDetailCardProps) => {
     const totalMerges: number = GetUserTotalMergeRequestsOpened(focusUser);
     GetUsersLastThreeCommits(focusUser, ctx.commitData);
         return (
-            <div className='flex items-center flex-col gap-4 py-10 bg-elem-bg rounded-md'>
+            <div className='flex items-center flex-col gap-4 py-10 bg-slate-400 rounded-md'>
                 {(focusUser.name === 'Empty') ?
                     <div className='flex justify-center items-center'>Ingen bruker valgt</div>
                     :
@@ -111,9 +111,9 @@ const UserDetailCard = ({ focusUser }: UserDetailCardProps) => {
                             <p>---------------------------------------------</p>
                             <span>Total merge requests closed: {totalMerges}</span>
                             <p className='font-bold p-2'>Latest commits:</p>
-                            <div className='flex flex-col gap-4 p-4 bg-red-100 w-11/12'>
+                            <div className='flex flex-col gap-4 p-4 bg-slate-700 w-80'>
                                 {userCommits.map((c, i) => {
-                                    return (<div key={i} className='flex flex-col'>
+                                    return (<div key={i} className='flex flex-col text-white'>
                                         {/* <span className='italic'>{c.author_name}</span> */}
                                         <span>{c.title}</span>
                                 </div>
