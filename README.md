@@ -7,8 +7,6 @@
 ## Technology
 The project is based on Node with use of Node Package Manager (NPM) and is programmed with React and JSX. The project is written with Typescript and styled with Tailwind. The project primarily contains functional components but has one class component which is IssueDetailCard. The context API is used and implemented in DataContext. 
 
-Under “Structure” it is written more detailed about the components and files in the project.
-
 ### Use of Tailwind
 We have chosen to use Tailwind because it is easier and less complex than using css. You can write the styling directly in the component and therefore have more control, and the rest of the team members can easily access and understand the styling.
 
