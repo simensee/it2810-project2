@@ -18,8 +18,8 @@ const MergeRQList = ({ mergeRequestList }: MergeRequestProps) => {
       }, [])
 
     return (
-        <div className='w-full h-full bg-white rounded-md grid grid-cols-3 gap-2'>
-            <div className='col-span-2 flex flex-col gap-2 w-full p-2'>
+        <div className='w-full h-3/4 grow-0 flex flex-col gap-2 bg-white rounded-md md:grid md:grid-cols-3 md:gap-2'>
+            <div className='order-last md:order-first col-span-2 grid grid-col gap-2 overflow-y-scroll w-full p-2'>
                 {(mergeRequestList.length !== 0) ?
                     mergeRequestList.map(m => {
                         return <MergeRQListTile 
@@ -33,7 +33,7 @@ const MergeRQList = ({ mergeRequestList }: MergeRequestProps) => {
                     :
                     <div>Ingen merge-requests</div>}
             </div>
-            <div className='w-full h-full p-2'>
+            <div className='w-full md:h-full p-2'>
                 <MergeRQDetails merge={focusMerge} />
             </div>
         </div>

@@ -47,8 +47,8 @@ const IssuePage = () => {
   });
 
   return (
-    <div className='grid h-full grid-cols-3 gap-4'>
-      <div className='bg-white rounded-md col-span-2 grid grid-cols-3 gap-4 overflow-auto'>
+    <div className='flex flex-col p-2 gap-2 lg:grid lg:h-full lg:grid-cols-3 lg:gap-4'>
+      <div className='bg-white rounded-md lg:col-span-2 lg:grid lg:grid-cols-3 lg:gap-4 lg:overflow-auto'>
         <div className='py-4 px-2 rounded-md'>
           <span className='text-xl'>Todo ({todoIssues.length})</span>
           <Divider className='py-1' />
@@ -83,7 +83,7 @@ const IssuePage = () => {
           </div>
         </div>
       </div>
-      <div className='w-full'>
+      <div className='w-full h-1/4  md:h-full lg:order-last order-first'>
         <IssueDetailCard
           focusIssue={focusIssue}
         />

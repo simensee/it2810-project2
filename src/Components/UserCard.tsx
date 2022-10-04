@@ -16,7 +16,7 @@ const UserCard = ({user, handleClick, isSelected}: UserCardProps) => {
 
     return (
         <div 
-        className="max-witdh-xs w-48 h-56 bg-indigo-100 hover:bg-indigo-50 p-5 pt-6 hover:cursor-pointer rounded-md"
+        className="w-full h-56 bg-indigo-100 hover:bg-indigo-50 p-5 pt-6 hover:cursor-pointer rounded-md"
         onClick={() => handleClick(user)}
         style={{backgroundColor: isSelected ? '#eef2ff' : ''}}>
             <div className="space-y-2">
