@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { DataContextProvider } from './Resources/DataContext';
 
 const root = ReactDOM.createRoot(
@@ -15,11 +15,11 @@ const queryClient = new QueryClient()
 const dataContext = createContext(null);
 
 root.render(
-    <BrowserRouter>
+    <HashRouter>
       <DataContextProvider>
         <App/>
       </DataContextProvider>
-    </BrowserRouter>
+    </HashRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -18,6 +18,7 @@ interface DataContextProps {
     fetchMergeRequests: Function,
     fetchIssues: Function,
     fetchLabelColors: Function,
+    getUserTotalCommits: Function,
 }
 
 export const DataContext = createContext<DataContextProps>({
@@ -36,6 +37,7 @@ export const DataContext = createContext<DataContextProps>({
     fetchMergeRequests: () => null,
     fetchIssues: () => null,
     fetchLabelColors: () => Promise<LabelColor[]>,
+    getUserTotalCommits: (u: User) => Number,
 });
 
 export interface LayoutProps {
@@ -225,6 +227,17 @@ export const DataContextProvider = (props: LayoutProps) => {
         });
     }
 
+    function getUserTotalCommits(user: User): number {
+        const resp: Commit[] | Commit = commitData;
+        let n: number = 0;
+        for (let i = 0; i < resp.length; i++) {
+            if (user.username === resp[i].author_name) {
+                n += 1
+            }
+        }
+        return n;
+    }
+
     const value: DataContextProps = {
         usersData,
         commitData,
@@ -241,6 +254,7 @@ export const DataContextProvider = (props: LayoutProps) => {
         fetchMergeRequests,
         fetchIssues,
         fetchLabelColors,
+        getUserTotalCommits,
     };
 
     return <DataContext.Provider value={value}>{props.children}</DataContext.Provider>

@@ -6,6 +6,7 @@ import NavRouter from './Components/Router/NavRouter';
 import { DataContext } from './Resources/DataContext';
 import { classicNameResolver } from 'typescript';
 import classnames from 'tailwindcss-classnames';
+
 import LoginPage from './Components/Pages/LoginPage';
 
 function App() {
