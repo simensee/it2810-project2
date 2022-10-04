@@ -18,16 +18,6 @@ const Sidebar = () => {
             <h1>Nettside</h1>
           </div>
           <ul className='flex space-x-1 sm:space-y-2 sm:flex sm:flex-col'>
-            <li >
-              <NavButton
-                route={AppRoutes.readme}
-              >
-                <div className='hidden mb:visible'>
-                  <ArticleIcon />
-                </div>
-                <span>Readme</span>
-              </NavButton>
-            </li>
             <li>
               <NavButton
                 route={AppRoutes.usersPage}
