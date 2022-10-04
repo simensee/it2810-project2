@@ -23,7 +23,7 @@ function App() {
   const [loadComplete, setLoadComplete] = useState(false);
 
   useEffect(() => {
-    setup().then(() => setLoadComplete(true)).then(() => console.log(ctx.issueData));
+    setup().then(() => setLoadComplete(true)).then(() => console.log('fetching complete'));
   }, []);
 
   // console.log(FetchUsers());
@@ -39,14 +39,14 @@ function App() {
   return (
     <>
       {/* <LoginPage/> */}
-      {/* {loadComplete ? 
+      {loadComplete ? 
       <NavRouter/>
       :
       <div className='flex items-center justify-center h-full'>
         <span className='text-5xl'>Loading...</span>
       </div>      
-    } */}
-    <NavRouter/>
+    }
+    {/* <NavRouter/> */}
       {/* <nav>
         <Sidebar />
       </nav>
