@@ -1,16 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { DataContext } from '../../Resources/DataContext';
 import { Commit, MergeRequest, User } from '../../Resources/ResponseTypes';
-import MergeDetailCard from '../DetailCards/MergeDetailCard';
 import DatePicker from 'react-datepicker';
-import { DropDownList } from "@progress/kendo-react-dropdowns";
 import "react-datepicker/dist/react-datepicker.css";
 import CommitList from '../ProgressPageComponents/CommitList';
 import MergeRQList from '../ProgressPageComponents/MergeRQList';
-import { Link } from 'react-router-dom';
-import { AppRoutes } from '../Router/AppRoutes';
 import DropDown from '../Components/Dropdown';
-import { Button } from '@mui/material';
 import TabButton from '../ProgressPageComponents/TabButton';
 
 function dateIsValid(date: Date) {
@@ -19,20 +14,23 @@ function dateIsValid(date: Date) {
 
 const ProgressPage = () => {
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    localStorage.setItem("startDate", startDate);
-    setStartDate(startDate);
-    localStorage.setItem("endDate", endDate);
-    setEndDate(endDate);
-    localStorage.setItem("user", username);
-    setUsername(username);
-  }
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [username, setUsername] = useState("");
-  const [displayOption, setdisplayOption] = useState('Overview');
+  const [startDate, setStartDate] = useState(sessionStorage.getItem('startDate') ?? (new Date()).toISOString().split('T')[0]);
+  const [endDate, setEndDate] = useState(sessionStorage.getItem('endDate') ?? (new Date()).toISOString().split('T')[0]);
+  const [username, setUsername] = useState(sessionStorage.getItem('user') ?? "");
+  const [displayOption, setdisplayOption] = useState(sessionStorage.getItem('displayOption') ?? 'Overview');
+
+  useEffect(() => {
+    updateResult();
+  }, [username]);
+
+  const updateParams = async () => {
+    sessionStorage.setItem("startDate", startDate);
+    setStartDate(startDate);
+    sessionStorage.setItem("endDate", endDate);
+    setEndDate(endDate);
+  }
 
   const handleOptionSelect = (option: string) => {
     setdisplayOption(option);
@@ -40,9 +38,6 @@ const ProgressPage = () => {
   }
 
   const ctx = useContext(DataContext);
-  const mergeList: MergeRequest[] = ctx.mergeData;
-  const commitList: Commit[] = ctx.commitData;
-  const userList: User[] = ctx.usersData;
 
   const [renderedMergeList, setRenderedMergeList] = useState<MergeRequest[]>([]);
   const [renderedCommitList, setRenderedCommitList] = useState<Commit[]>([]);
@@ -59,23 +54,14 @@ const ProgressPage = () => {
     }
   };
 
-  const userSelection = (user: User): void => {
-    setUsername(user.username ? user.username : "");
+  const userSelection = (user: User): void => {    
+    setUsername(user.username ?? '');
+    sessionStorage.setItem("user", user.username ?? '');
   };
 
-  useEffect(() => {
-    setdisplayOption(sessionStorage.getItem('displayOption') ?? 'Overview');
-    const startDateStr: string = localStorage.getItem('startDate') ?? (new Date()).toISOString().split('T')[0];
-    setStartDate(startDateStr);
-    const endDateStr: string = localStorage.getItem('endDate') ?? (new Date()).toISOString().split('T')[0];
-    setEndDate(endDateStr);
-    const name: string = localStorage.getItem('user') ?? "";
-    setUsername(name);
-    updateResult();
-  }, [username]);
-
-  const updateResult = () => {
-    const filteredMergeList: MergeRequest[] = mergeList.filter((m) => {
+  const updateResult = async () => {
+    await updateParams();
+    const filteredMergeList: MergeRequest[] = ctx.mergeData.filter((m) => {
       if (
         m.created_at!.split("T")[0] >= startDate &&
         m.created_at!.split('T')[0] <= endDate &&
@@ -85,7 +71,7 @@ const ProgressPage = () => {
     });
     setRenderedMergeList(filteredMergeList);
 
-    const filteredCommits: Commit[] = commitList.filter((c) => {
+    const filteredCommits: Commit[] = ctx.commitData.filter((c) => {
       if (
         c.committed_date!.split("T")[0] >= startDate.split("T")[0] &&
         c.committed_date!.split("T")[0] <= endDate.split("T")[0] &&
@@ -114,22 +100,22 @@ const ProgressPage = () => {
     <div className="w-full h-full flex flex-col gap-4">
       <div className="flex flex-row w-full items-center justify-between px-2 py-2 bg-white rounded-md">
         <div className='flex flex-row gap-3 pl-2'>
-        <TabButton 
-          label='Overview'
-          selected={displayOption === 'Overview'}
-          handleCLick={(l) => handleOptionSelect(l)}/>
-          <TabButton 
-          label='Merge requests'
-          selected={displayOption === 'Merge requests'}
-          handleCLick={(l) => handleOptionSelect(l)}/>
-          <TabButton 
-          label='Commits'
-          selected={displayOption === 'Commits'}
-          handleCLick={(l) => handleOptionSelect(l)}/>
+          <TabButton
+            label='Overview'
+            selected={displayOption === 'Overview'}
+            handleCLick={(l) => handleOptionSelect(l)} />
+          <TabButton
+            label='Merge requests'
+            selected={displayOption === 'Merge requests'}
+            handleCLick={(l) => handleOptionSelect(l)} />
+          <TabButton
+            label='Commits'
+            selected={displayOption === 'Commits'}
+            handleCLick={(l) => handleOptionSelect(l)} />
         </div>
         <form
           className='flex'
-          onSubmit={handleSubmit}>
+          onSubmit={(e) => e.preventDefault()}>
           <button
             className={'relative px-7 rounded-md text-white text-sm bg-blue-700 cursor-pointer hover:bg-blue-800 ${showDropDown ? "active" : undefined}'}
             onClick={(): void => toggleDropDown()}
@@ -138,11 +124,11 @@ const ProgressPage = () => {
             }
           >
             <div>
-              {username ? username : "Select ..."}
+              {(username !== '') ? username : "Select ..."}
             </div>
             {showDropDown && (
               <DropDown
-                users={userList}
+                users={ctx.usersData}
                 showDropDown={false}
                 toggleDropDown={(): void => toggleDropDown()}
                 userSelection={userSelection}
