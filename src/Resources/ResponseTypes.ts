@@ -87,7 +87,7 @@ export interface MergeRequest {
     state?:                       string;
     created_at?:                  string;
     updated_at?:                   Date;
-    mergedBy?:                    User;
+    merged_by?:                    User;
     merge_user?:                   User;
     merged_at?:                    string;
     closedBy?:                    null;
