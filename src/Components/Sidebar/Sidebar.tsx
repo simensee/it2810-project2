@@ -1,15 +1,16 @@
-import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { AppRoutes } from '../Router/AppRoutes'
 import NavButton from './NavButton'
 import ArticleIcon from '@mui/icons-material/Article';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import { DataContext } from '../../Resources/DataContext';
 import { FormatListBulleted } from '@mui/icons-material';
+import { useStepContext } from '@mui/material';
 
 const Sidebar = () => {
   const ctx = useContext(DataContext);
-
+  const navigate = useNavigate();
   return (
     <div className='flex'>
       <aside className='md:w-64 max-h-screen'>
@@ -48,7 +49,8 @@ const Sidebar = () => {
               <button
                 className='flex items-center md:space-x-6 md:px-4 md:py-2 rounded-lg text-gray-100 hover:bg-gray-100 hover:text-gray-900'
                 onClick={() => {
-                  ctx.setIsAuthorized(false);
+                  localStorage.setItem('isAuth', 'false');
+                  navigate(AppRoutes.loginPage);
                 }}
               >
                 <span className="flex-1 ml-3 whitespace-nowrap">Log out</span>

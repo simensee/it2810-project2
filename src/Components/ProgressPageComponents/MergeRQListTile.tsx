@@ -9,7 +9,7 @@ type MergeRQListTileProps = {
 const MergeRQListTile = ({ merge, handleClick }: MergeRQListTileProps) => {
     return (
         <div 
-        className='flex flex-col gap-1 py-1 px-2 bg-stone-200 hover:bg-stone-100 rounded-md'
+        className='flex flex-col gap-1 py-1 px-2 bg-slate-200 hover:bg-slate-100 rounded-md'
         onClick={() => handleClick(merge)}>
             <span>{merge.source_branch}</span>
             <div className='flex flex-row justify-between w-full'>

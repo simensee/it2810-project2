@@ -4,8 +4,8 @@ import { DataContext } from '../../Resources/DataContext';
 import { AppRoutes } from './AppRoutes';
 
 const UnProtectedRoute = () => {
-    const ctx = useContext(DataContext);
-  if (ctx.isAuthorized){
+  const isAuth = localStorage.getItem('isAuth') === 'true';
+  if (isAuth){
       return <Navigate to={AppRoutes.usersPage} replace/>
   }
   return <Outlet/>
