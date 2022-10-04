@@ -88,10 +88,10 @@ export interface MergeRequest {
     state?:                       string;
     createdAt?:                   Date;
     updatedAt?:                   Date;
-    mergedBy?:                    User;
-    mergeUser?:                   User;
+    merged_by?:                   User;
+    merge_user?:                  User;
     mergedAt?:                    Date;
-    closedBy?:                    null;
+    closed_by?:                   User;
     closedAt?:                    null;
     targetBranch?:                string;
     sourceBranch?:                string;

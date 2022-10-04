@@ -12,7 +12,7 @@ type UserCardProps = {
 
 const UserCard = ({user, handleClick, isSelected}: UserCardProps) => {
 
-    console.log(user.web_url);
+    
 
     return (
         <div 
