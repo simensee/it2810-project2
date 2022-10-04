@@ -5,8 +5,12 @@
 3. Run npm start
 
 ### To use the web application
-1. Log in with the ID of your repo and an access token.
-2. 
+* Log in with the ID of your repo and an access token.
+* On the right you will have a navigation bar, to choose what information you want to see.
+    * Users: Click on a user to get more information
+    * Progress: The Overview will show you the same information without considering the filters you have chosen. Merge request and commits will only show you informaiton about the selected user. Therefor you have to chose a user to load information.
+    * Issues: Overview of all the issues in the repo, both opened and closed. If the repo uses the labels “Todo”, “Done” and “Doing” these will show in their respective column. If the repo does not use these labels, the “Done”-column will still include all closed issues. This page will sometimes be slow loading, but this was not something we were able to solve
+    * Log out: Signes out of the repo 
 
 ## Technology
 The project is based on Node with use of Node Package Manager (NPM) and is programmed with React and JSX. The project is written with Typescript and styled with Tailwind. The project primarily contains functional components but has one class component which is IssueDetailCard. The context API is used and implemented in DataContext. 
