@@ -23,7 +23,6 @@ const UsersPage = () => {
     setFocusUser(prevUser);
   }, []);
  
-
   return (
     <div className='grid grid-cols-3 gap-4'>
       <div className='col-span-2 grid grid-cols-4 gap-y-4'>
