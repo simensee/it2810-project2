@@ -61,7 +61,7 @@ export interface Commit {
     authoredDate?:   Date;
     committerName?:  string;
     committerEmail?: string;
-    committed_date?:  string;
+    committed_date?: string;
     trailers?:       boolean;
     webUrl?:         string;
 }
@@ -87,10 +87,10 @@ export interface MergeRequest {
     state?:                       string;
     created_at?:                  string;
     updatedAt?:                   Date;
-    mergedBy?:                    User;
-    mergeUser?:                   User;
+    merged_by?:                   User;
+    merge_user?:                  User;
     mergedAt?:                    Date;
-    closedBy?:                    null;
+    closed_by?:                   User;
     closedAt?:                    null;
     targetBranch?:                string;
     sourceBranch?:                string;
