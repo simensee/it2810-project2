@@ -16,10 +16,11 @@ const Overview = () => {
     // console.log('commitList length', commitList.length);
 
     const dateList: string[] = [""];
+    // console.log(commitList[-10]);
 
-    const dates = commitList.reverse().map((commit) => {
+    const dates = commitList.map((commit) => {
         if (!(dateList.includes(commit.committed_date!.split('T')[0])) && (dateList.length != 0)) {
-            dateList.push(commit.committed_date!.split('T')[0]);
+            dateList.unshift(commit.committed_date!.split('T')[0]);
         }
     })
 
@@ -27,7 +28,7 @@ const Overview = () => {
 
     const dateCount = dateList.map((date) => {
         let count = 0;
-        commitList.reverse().forEach((commit) => {
+        commitList.forEach((commit) => {
             if (commit.committed_date?.split('T')[0] === date) {
                 count++;
             }
@@ -35,8 +36,9 @@ const Overview = () => {
         return count;
     })
 
+    // console.log('dateCount', dateCount);
 
-    const usersWithCommits = userList.map((user) => {
+    userList.map((user) => {
         if (ctx.getUserTotalCommits(user) > 0) {
             usersForGraph.push(user);
         }
@@ -74,7 +76,6 @@ const Overview = () => {
             },
             y: {
                 beginAtZero: true,
-                max: 35,
                 color: 'black',
                 ticks: {
                     color: 'black',
