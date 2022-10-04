@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App component it works 1`] = `
+<div>
+  62388
+</div>
+`;
