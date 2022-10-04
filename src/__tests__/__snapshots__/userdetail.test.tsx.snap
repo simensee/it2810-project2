@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User component it works 1`] = `
+<div
+  className="flex items-center flex-col gap-4 py-10 bg-elem-bg rounded-md"
+>
+  <div
+    className="flex flex-col gap-4 items-center"
+  >
+    <img
+      alt="img not found"
+      className="w-52 h-52 rounded-full"
+    />
+    <div
+      className="h-30 flex flex-col items-center  p-2 overflow-auto"
+    >
+      <span
+        className="text-center text-2xl overflow-wrap"
+      >
+        Simen Seeberg-Rommetveit
+      </span>
+      <span>
+        @
+      </span>
+    </div>
+  </div>
+  <div
+    className="flex flex-col items-center"
+  >
+    <span>
+      Total commits: 
+      0
+    </span>
+    <span>
+      Total issues assigned: 
+      0
+    </span>
+    <p>
+      ---------------------------------------------
+    </p>
+    <span>
+      Total merge requests closed: 
+      0
+    </span>
+    <div />
+  </div>
+</div>
+`;

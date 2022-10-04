@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+
+exports[`Merge component it works 1`] = `
+<div>
+  62388
+</div>
+`;
