@@ -28,7 +28,7 @@ We used Chart.js, which is a free JavaScript HTML5 library, to easily create a H
     * In *Pages* are the different pages you can choose between in the navbar. In all of the pages we store different information fetched from the GitLab API. 
         * **LoginPage** lets you write in your repository and token to get access to your repo. Used local storage to store the repository that is written so you don't have to log in each time.
         * **IssuePage** shows issues on a Kanban board. It also shows which issue is closed and opened. Used session storage to store which issue you have chosen as a detail card.
-        * **ProgressPage** contains **Overview** with number of commits per user and number of commits per date. Used session storage to store what you have filtered on. You can also filter on date and user. 
+        * **ProgressPage** contains *ProgressPageComponents* which you can read more about under the bulletpoint *ProgressPageComponents*. 
         * **UsersPage** contains cards of all the users in the repository. Used session storage to store the last user you have clicked on. If you click on one card you get more detailed information about the user which is UserDetailCard.
     * In *ProgressPageComponents* lies the components you can view on the ProgressPage
         * **Overview** shows two charts implemented from the Chart.js library. One Line chart showing number of commits each date. One Pie chart showing the number of commits for each user.
