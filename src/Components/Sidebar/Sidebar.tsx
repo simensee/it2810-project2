@@ -8,21 +8,23 @@ import { DataContext } from '../../Resources/DataContext';
 import { FormatListBulleted } from '@mui/icons-material';
 
 const Sidebar = () => {
-const ctx = useContext(DataContext);
+  const ctx = useContext(DataContext);
 
   return (
     <div className='flex'>
-      <aside className='w-64 max-h-screen'>
-        <div className='w-64 fixed left-0 top-0 h-screen bg-nav-bg py-10 px-5 min-h-screen'>
-          <div className='m-4 text-5xl text-gray-100'>
+      <aside className='md:w-64 max-h-screen'>
+        <div className='w-screen h-20 p-2 sm:h-full sm:w-64 fixed left-0 top-0 bg-nav-bg sm:py-10 sm:px-5'>
+          <div className='sm:m-4 sm:text-5xl text-gray-100'>
             <h1>Nettside</h1>
           </div>
-          <ul className='space-y-2'>
+          <ul className='flex space-x-1 sm:space-y-2 sm:flex sm:flex-col'>
             <li >
               <NavButton
                 route={AppRoutes.readme}
               >
-                <ArticleIcon />
+                <div className='hidden mb:visible'>
+                  <ArticleIcon />
+                </div>
                 <span>Readme</span>
               </NavButton>
             </li>
@@ -39,31 +41,35 @@ const ctx = useContext(DataContext);
                 route={AppRoutes.progressPage}
               >
                 {/* <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg> */}
-                <span className="flex-1 ml-3 whitespace-nowrap">Progress</span>
+                <span className="flex-1 md:ml-3 whitespace-nowrap">Progress</span>
               </NavButton>
             </li>
             <li>
               <NavButton
                 route={AppRoutes.branchesPage}
               >
+                <div className='hidden mb:visible'>
                 <AccountTreeIcon />
-                <span className="flex-1 ml-3 whitespace-nowrap">Branches</span>
+                </div>
+                <span className="flex-1 md:ml-3 whitespace-nowrap">Branches</span>
               </NavButton>
             </li>
             <li>
               <NavButton
                 route={AppRoutes.issuesPage}
               >
+                <div className='hidden mb:visible'>
                 <FormatListBulleted />
-                <span className="flex-1 ml-3 whitespace-nowrap">Issues</span>
+                </div>
+                <span className="flex-1 md:ml-3 whitespace-nowrap">Issues</span>
               </NavButton>
             </li>
             <li>
-              <button 
-              className='flex items-center space-x-6 px-4 py-2 rounded-lg text-gray-100 hover:bg-gray-100 hover:text-gray-900'
-              onClick={()=> {
-                ctx.setIsAuthorized(false);
-              }}
+              <button
+                className='flex items-center md:space-x-6 md:px-4 md:py-2 rounded-lg text-gray-100 hover:bg-gray-100 hover:text-gray-900'
+                onClick={() => {
+                  ctx.setIsAuthorized(false);
+                }}
               >
                 <span className="flex-1 ml-3 whitespace-nowrap">Log out</span>
               </button>

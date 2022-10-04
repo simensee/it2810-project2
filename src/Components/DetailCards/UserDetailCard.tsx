@@ -89,15 +89,6 @@ const UserDetailCard = ({ focusUser }: UserDetailCardProps) => {
     const totalIssues: number = GetUserTotalIssuesAssigned(focusUser);
     const totalMerges: number = GetUserTotalMergeRequestsOpened(focusUser);
     GetUsersLastThreeCommits(focusUser, ctx.commitData);
-
-    
-    
-    
-    
-    
-    
-
-    
         return (
             <div className='flex items-center flex-col gap-4 py-10 bg-elem-bg rounded-md'>
                 {(focusUser.name === 'Empty') ?

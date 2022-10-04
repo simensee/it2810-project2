@@ -24,13 +24,13 @@ const UsersPage = () => {
   }, []);
  
   return (
-    <div className='grid grid-cols-3 gap-4'>
-      <div className='col-span-2 grid grid-cols-4 gap-y-4'>
+    <div className='flex flex-col gap-2 w-full px-2 lg:grid lg:grid-cols-3 lg:gap-4'>
+      <div className='w-full grid grid-cols-2 gap-2 lg:col-span-2 lg:grid lg:grid-cols-3 lg:gap-y-4'>
         {ctx.usersData.map((u, i) => {
           return <UserCard key={u.id} user={u} handleClick={(u) => handleUserClick(u)} isSelected={(u.id === focusUser.id)}></UserCard>
         })}
       </div>
-      <div data-testid="testUserDetailCard" className='w-full'>
+      <div data-testid="testUserDetailCard" className='w-full order-first lg:order-last'>
         <UserDetailCard
         focusUser={focusUser}
         />
