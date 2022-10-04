@@ -110,22 +110,15 @@ const UserDetailCard = ({ focusUser }: UserDetailCardProps) => {
                             <span>Total issues assigned: {totalIssues}</span>
                             <p>---------------------------------------------</p>
                             <span>Total merge requests closed: {totalMerges}</span>
-                            <div>
-                                    
-                                    {userCommits.map((c, i) => {
-                                        return (<div key={i} className='flex flex-col gap-4'>
-                                            <span>{c.title}</span>
-                                            <span>{c.author_name}</span>
-                                            
-                                    </div>
-                                    )})}
-                        
-                                    
-
+                            <p className='font-bold p-2'>Latest commits:</p>
+                            <div className='flex flex-col gap-4 p-4 bg-red-100 w-11/12'>
+                                {userCommits.map((c, i) => {
+                                    return (<div key={i} className='flex flex-col'>
+                                        {/* <span className='italic'>{c.author_name}</span> */}
+                                        <span>{c.title}</span>
+                                </div>
+                                )})}
                             </div>
-                            
-                        
-
                         </div>
                     </>
                 }
