@@ -87,7 +87,7 @@ const ProgressPage = () => {
   const displayChoosen = (option: string): JSX.Element => {
     switch (option) {
       case 'Overview':
-        return <Overview></Overview>;
+        return <Overview />
       case 'Merge requests':
         return <MergeRQList mergeRequestList={renderedMergeList} />;
       case 'Commits':
