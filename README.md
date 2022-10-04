@@ -4,6 +4,10 @@
 2. Run npm install
 3. Run npm start
 
+### To use the web application
+1. Log in with the ID of your repo and an access token.
+2. 
+
 ## Technology
 The project is based on Node with use of Node Package Manager (NPM) and is programmed with React and JSX. The project is written with Typescript and styled with Tailwind. The project primarily contains functional components but has one class component which is IssueDetailCard. The context API is used and implemented in DataContext. 
 
@@ -61,24 +65,6 @@ Flytende/fleksibellayout
 
 ### Use of Git
 The group has used GitLab and the kanban board for controlling which issues to work on and which issues other team members are working on. Each issue has been created as a branch. Also, for each commit we have used “fix” or “feat” in the beginning of each commit to see if it is a feature or a bug/something to be fixed. 
-
-## Dependencies
-We are using the following dependencies
-* NPM
-* Tailwind
-* Chart
-
-### Tailwind
-We have chosen to use Tailwind because it is easier and less complex then using css. You can write the styling directly in the component and therefore have easier access.
-
-### NPM
-We chose npm as our JS package manager because it is popular and have a lot of resources. 
-
-## API
-The data we are fetching using HTTP-GET requests is:
-* Commits
-* Branches
-* Users
 
 ## Testing
 We test our project with Jest-test, some of which are snapshot tests. The snapshot test will make sure the data from the API matches expected data. The component test checks if the new components render correctly. 
