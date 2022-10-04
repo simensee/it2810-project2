@@ -231,7 +231,7 @@ export const DataContextProvider = (props: LayoutProps) => {
         const resp: Commit[] | Commit = commitData;
         let n: number = 0;
         for (let i = 0; i < resp.length; i++) {
-            if (user.username === resp[i].author_name) {
+            if (user.username === resp[i].author_name || user.username === resp[i].author_email?.split('@')[0]) {
                 n += 1
             }
         }

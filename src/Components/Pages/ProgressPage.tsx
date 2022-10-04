@@ -7,6 +7,7 @@ import CommitList from '../ProgressPageComponents/CommitList';
 import MergeRQList from '../ProgressPageComponents/MergeRQList';
 import DropDown from '../Components/Dropdown';
 import TabButton from '../ProgressPageComponents/TabButton';
+import Overview from './Overview';
 
 function dateIsValid(date: Date) {
   return !Number.isNaN(new Date(date).getTime());
@@ -86,7 +87,7 @@ const ProgressPage = () => {
   const displayChoosen = (option: string): JSX.Element => {
     switch (option) {
       case 'Overview':
-        return <div className='w-full'>Overview!</div>;
+        return <Overview />
       case 'Merge requests':
         return <MergeRQList mergeRequestList={renderedMergeList} />;
       case 'Commits':
