@@ -51,7 +51,7 @@ AJAX comes with React and allows you to request and receive data from a server a
 We have chosen to use Fetch to handle AJAX calls to GitLab. The choice was between Fetch and the alternative Axios. Fetch was chosen here as it is well documented and therefore easy to get started with. The alternative Axios also had good documentation, especially linked to React, but Fetch was still chosen as it will possibly become the standard, and was good to get started with.
 
 ### HTML Web storage
-We use Session storage to filter the render of data we fetch from the Gitlab API like issues, users, commits, merge and merge requests on the progress page. We use local storage to store the filtering on time period and selected user. 
+We used Session storage to filter the render of data we fetch from the Gitlab API like issues, users, commits, merge and merge requests on the progress page. We use local storage to store the filtering on time period and selected user. 
 
 ### Responsive design 
 Viewport
