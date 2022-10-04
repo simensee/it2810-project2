@@ -1,4 +1,8 @@
 # Team 23 - Prosjekt 2
+## To run the project 
+1. Navigate to the root of the project which is the name of your repo
+2. Run npm install
+3. Run npm start
 
 ## Technology
 The project is based on Node with use of Node Package Manager (NPM) and is programmed with React and JSX. The project is written with Typescript and styled with Tailwind. The project primarily contains functional components but has one class component which is IssueDetailCard. The context API is used and implemented in DataContext. 
@@ -59,11 +63,6 @@ Flytende/fleksibellayout
 
 ### Use of Git
 The group has used GitLab and the kanban board for controlling which issues to work on and which issues other team members are working on. Each issue has been created as a branch. Also, for each commit we have used “fix” or “feat” in the beginning of each commit to see if it is a feature or a bug/something to be fixed. 
-
-## To run the project 
-1. Navigate to the root of the project which is the name of your repo
-2. Run npm install
-3. Run npm start
 
 ## Dependencies
 We are using the following dependencies
