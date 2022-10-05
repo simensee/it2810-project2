@@ -59,13 +59,19 @@ AJAX comes with React and allows you to request and receive data from a server a
 We have chosen to use Fetch to handle AJAX calls to GitLab. The choice was between Fetch and the alternative Axios. Fetch was chosen here as it is well documented and therefore easy to get started with. The alternative Axios also had good documentation, especially linked to React, but Fetch was still chosen as it will possibly become the standard, and was good to get started with.
 
 ### HTML Web storage
-We used Session storage to filter the render of data we fetch from the Gitlab API like issues, users, commits, merge and merge requests on the progress page. We use local storage to store the filtering on time period and selected user. 
+We used both session storage and local storage in this project. Session storage is used for storing filter parameters in the different pages, so that when swapping in between pages, the previous filters are still set. In the user page, the highlighted user is still selected when switching pages, the same goes for commits and merge requests. The filtering parameters are the dates and user on the progress page.
+Local storage is used for storing the repo id and the repo access token from the user. A "logged in" status is also stored, all this ensures that even when the browser is closed, the user is still logged in the next time the page is opened. A user is "logged in" until they press the log out button.
 
-### Responsive design 
-Viewport
-Media-queries
+### Context provider
+The context provider api is used quite extensively in this project. All data fetched from the api is stored here, and is then available from every component in the app whitout the need for multiple fetch queries or passing down props. The fetching itself occurs after loggin in in the protected route component.
+The context api was used in this fashion because, as mentioned above, the data inside is accesible from every child component. This is prefereable to passing the api data down to children as props. Another reason is as mentioned that all api fetching can be done in bulk, and only once. This causes an initial delay when the page is loaded, and all data is then accesible instantly wherever and whenever it is needed.
+We encountered a few problems with this approach, as the context provider really is not optimal for storing large amounts of data. A prominent problem was that we were unable to overwrite data in the context, the repo id and token which was needed for fetching then had to be stored by pushing and popping from a list.
+
+### Responsive design
+Viewport is used when setting the size of the page itself in the index.css file.
+Tailwind implements media-queries with shortcuts (sm:, md:, lg:) indicating the screen size. Theese shortcuts where then used for creating layouts that fit the corresponding screen size.
+Flexbox and grids where used in most parts of the styling to create a flexible layout.
 Bilder som skalerer
-Flytende/fleksibellayout
 
 ### Use of Git
 The group has used GitLab and the kanban board for controlling which issues to work on and which issues other team members are working on. Each issue has been created as a branch. Also, for each commit we have used “fix” or “feat” in the beginning of each commit to see if it is a feature or a bug/something to be fixed. 
