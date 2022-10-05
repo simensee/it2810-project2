@@ -60,11 +60,14 @@ We have chosen to use Fetch to handle AJAX calls to GitLab. The choice was betwe
 
 ### HTML Web storage
 We used both session storage and local storage in this project. Session storage is used for storing filter parameters in the different pages, so that when swapping in between pages, the previous filters are still set. In the user page, the highlighted user is still selected when switching pages, the same goes for commits and merge requests. The filtering parameters are the dates and user on the progress page.
+
 Local storage is used for storing the repo id and the repo access token from the user. A "logged in" status is also stored, all this ensures that even when the browser is closed, the user is still logged in the next time the page is opened. A user is "logged in" until they press the log out button.
 
 ### Context provider
 The context provider api is used quite extensively in this project. All data fetched from the api is stored here, and is then available from every component in the app whitout the need for multiple fetch queries or passing down props. The fetching itself occurs after loggin in in the protected route component.
+
 The context api was used in this fashion because, as mentioned above, the data inside is accesible from every child component. This is prefereable to passing the api data down to children as props. Another reason is as mentioned that all api fetching can be done in bulk, and only once. This causes an initial delay when the page is loaded, and all data is then accesible instantly wherever and whenever it is needed.
+
 We encountered a few problems with this approach, as the context provider really is not optimal for storing large amounts of data. A prominent problem was that we were unable to overwrite data in the context, the repo id and token which was needed for fetching then had to be stored by pushing and popping from a list.
 
 ### Responsive design
