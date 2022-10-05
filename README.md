@@ -71,7 +71,7 @@ We encountered a few problems with this approach, as the context provider really
 Viewport is used when setting the size of the page itself in the index.css file.
 Tailwind implements media-queries with shortcuts (sm:, md:, lg:) indicating the screen size. Theese shortcuts where then used for creating layouts that fit the corresponding screen size.
 Flexbox and grids where used in most parts of the styling to create a flexible layout.
-Bilder som skalerer
+We do not have a picture with scaling. This could have been implemented on the users profile pictures, but was not prioritezed.
 
 ### Use of Git
 The group has used GitLab and the kanban board for controlling which issues to work on and which issues other team members are working on. Each issue has been created as a branch. Also, for each commit we have used “fix” or “feat” in the beginning of each commit to see if it is a feature or a bug/something to be fixed. 
