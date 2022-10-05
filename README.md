@@ -76,21 +76,12 @@ Tailwind implements media-queries with shortcuts (sm:, md:, lg:) indicating the 
 Flexbox and grids where used in most parts of the styling to create a flexible layout.
 We do not have a picture with scaling. This could have been implemented on the users profile pictures, but was not prioritezed.
 
+### Routing
+In order to make this project an SPA, we used the library react-router-dom and the component hash-router. The webpage consists of two main routes, protected and unprotected. The protected route is only accessible if a user has logged in, and checks the aforementioned "logged in" status stored in local storage. The unportected route is the log in page, if a user is not logged in and tries to access the protected routes via url, they are redirected to the log in page.
+There was an issue with rerouting to the protected routes after a successful log in, the log in status was updated but the page did not redirect. After some testing we found that a simple refresh of the page directed us to the protected route as intended. The solution then was to force reload the page after a succsessful log in. Not a delicate solution, but it works.
+
 ### Use of Git
 The group has used GitLab and the kanban board for controlling which issues to work on and which issues other team members are working on. Each issue has been created as a branch. Also, for each commit we have used “fix” or “feat” in the beginning of each commit to see if it is a feature or a bug/something to be fixed. 
 
 ## Testing
 We test our project with Jest-test, some of which are snapshot tests. The snapshot test will make sure the data from the API matches expected data. The component test checks if the new components render correctly. 
-
-
-
-
- 
-
-
-
-
-
-
-
-
