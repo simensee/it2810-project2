@@ -22,7 +22,7 @@ const UserDetailCard = ({ focusUser }: UserDetailCardProps) => {
         const resp: Commit[] | Commit = ctx.commitData;
         let n: number = 0;
         for (let i = 0; i < resp.length; i++) {
-            if (user.username === resp[i].author_name || user.username === resp[i].author_email?.split('@')[0]) {
+            if (user.name === resp[i].author_name || user.username === resp[i].author_email?.split('@')[0]) {
                 n += 1
             }
         }
