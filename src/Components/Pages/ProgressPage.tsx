@@ -19,11 +19,13 @@ const ProgressPage = () => {
   const [startDate, setStartDate] = useState(sessionStorage.getItem('startDate') ?? (new Date()).toISOString().split('T')[0]);
   const [endDate, setEndDate] = useState(sessionStorage.getItem('endDate') ?? (new Date()).toISOString().split('T')[0]);
   const [username, setUsername] = useState(sessionStorage.getItem('user') ?? ctx.usersData[0].username);
+  const [name, setName] = useState(sessionStorage.getItem('name') ?? ctx.usersData[0].name);
+
   const [displayOption, setdisplayOption] = useState(sessionStorage.getItem('displayOption') ?? 'Overview');
 
   useEffect(() => {
     updateResult();
-  }, [username]);
+  }, [username, name]);
 
   const updateParams = async () => {
     sessionStorage.setItem("startDate", startDate);
@@ -54,7 +56,9 @@ const ProgressPage = () => {
 
   const userSelection = (user: User): void => {
     setUsername(user.username ?? '');
+    setName(user.name ?? '');
     sessionStorage.setItem("user", user.username ?? '');
+    sessionStorage.setItem("name", user.name ?? '');
   };
 
   const updateResult = async () => {
@@ -73,8 +77,8 @@ const ProgressPage = () => {
       if (
         c.committed_date!.split("T")[0] >= startDate.split("T")[0] &&
         c.committed_date!.split("T")[0] <= endDate.split("T")[0] &&
-        c.author_email!.split('@')[0] === username
-      ) {
+        (c.author_email!.split('@')[0] === username || c.author_name! === username) 
+        ) {
         return c;
       }
     });
